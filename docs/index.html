@@ -29,8 +29,28 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-fec5b9984a5b3db1d37fc779c3bcd21f.css">
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-1ce964ed88bc48a77d2f7d83c5a8fb42.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -185,37 +205,188 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <li>R Package: <a href="https://github.com/haziqj/brlavaan" class="uri">https://github.com/haziqj/brlavaan</a></li>
 </ul>
 </div>
-<p><span class="absolute" style="bottom: 0px; right: 0px; "><img data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aCA9ICIyMjAiIGhlaWdodCA9ICIyMjAiIHhtbG5zID0gImh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94ID0gIjAgMCAyMjAgMjIwIj48cmVjdCB3aWR0aCA9ICIyMjAiIGhlaWdodCA9ICIyMjAiIGZpbGwgPSAiI2RkZCIgLz48dGV4dCB4ID0gIjUwJSIgeSA9ICI1MCUiIGZvbnQtZmFtaWx5ID0gInNhbnMtc2VyaWYiIGZvbnQtc2l6ZSA9ICIyMiIgZmlsbCA9ICIjMDAwIiB0ZXh0LWFuY2hvciA9ICJtaWRkbGUiPjIyMCB4IDIyMDwvdGV4dD48L3N2Zz4="></span></p>
-<p><span class="absolute" style="bottom: 210px; right: 235px; "><span class="bg-grn"><strong>poll</strong></span></span></p>
+<p><span class="absolute" style="bottom: 10px; right: 0px; "><img data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aCA9ICIyMjAiIGhlaWdodCA9ICIyMjAiIHhtbG5zID0gImh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94ID0gIjAgMCAyMjAgMjIwIj48cmVjdCB3aWR0aCA9ICIyMjAiIGhlaWdodCA9ICIyMjAiIGZpbGwgPSAiI2RkZCIgLz48dGV4dCB4ID0gIjUwJSIgeSA9ICI1MCUiIGZvbnQtZmFtaWx5ID0gInNhbnMtc2VyaWYiIGZvbnQtc2l6ZSA9ICIyMiIgZmlsbCA9ICIjMDAwIiB0ZXh0LWFuY2hvciA9ICJtaWRkbGUiPjIyMCB4IDIyMDwvdGV4dD48L3N2Zz4="></span></p>
+<p><span class="absolute" style="bottom: 220px; right: 235px; "><span class="bg-grn"><strong>poll</strong></span></span></p>
 </section>
+<section id="context" class="slide level2">
+<h2>Context</h2>
+<div title="SEM in a nutshell">
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>SEM in a nutshell</strong></p>
+</div>
+<div class="callout-content">
+<p>Analyse multivariate data <span class="math inline">\(\mathbf y=(y_1,\dots,y_p)^\top\)</span> to measure and relate hidden variables <span class="math inline">\(\boldsymbol\eta=(\eta_1,\dots,\eta_q)^\top\)</span>, <span class="math inline">\(q \ll p\)</span>, and uncover complex patterns.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="nudge-up-small">
+<p>In the social sciences, latent variables are used to represent <strong>constructs</strong>—the <em>theoretical, unobserved</em> concepts of interest.</p>
+</div>
+<div class="nudge-up">
+<div class="columns">
+<div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://unsplash.com/photos/5bYxXawHOQg/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzU5MjMzMTM4fA&amp;force=true&amp;w=640.png" height="210"></p>
+<figcaption><em>(Psychology)</em><br>Personality traits</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://unsplash.com/photos/hIgeoQjS_iE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzU5MjI2Nzg4fA&amp;force=true&amp;w=640.png" height="210"></p>
+<figcaption><em>(Healthcare)</em><br>Quality of life</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://unsplash.com/photos/zjeZXMU1SKE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzU5MjMzNzIxfA&amp;force=true&amp;w=640.png" height="210"></p>
+<figcaption><em>(Political science)</em><br>Social trust</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:25%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://unsplash.com/photos/oXV3bzR7jxI/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzU5MjMzNzM1fA&amp;force=true&amp;w=640.png" height="210"></p>
+<figcaption><em>(Education)</em><br>Competencies</figcaption>
+</figure>
+</div>
+</div></div>
+</div>
+
+<aside><div>
+<p>Photo credits: Unsplash <a href="https://unsplash.com/photos/brown-fountain-pen-on-notebook-5bYxXawHOQg">@dtravisphd</a>, <a href="https://unsplash.com/photos/doctor-holding-red-stethoscope-hIgeoQjS_iE">@impulsq</a>, <a href="https://unsplash.com/photos/a-group-of-police-standing-next-to-each-other-zjeZXMU1SKE">@ev</a>, <a href="https://unsplash.com/photos/person-using-pencil-oXV3bzR7jxI">@benmullins</a>.</p>
+</div></aside></section>
 <section id="motivation" class="slide level2">
 <h2>Motivation</h2>
-<p>SEMs used where.</p>
-<p>Small sample size problem is pervasive.</p>
-<p>Examples.</p>
+<p><em>“Using SEMs in empirical research is often challenged by small sample sizes.”</em></p>
+<ul>
+<li>Why? Data collection is expensive, time-consuming, or difficult.</li>
+<li>Rare populations:
+<ul>
+<li><strong><span class="citation" data-cites="quezada2016explanatory">Quezada, González, and Mecott (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span>:</strong> Identifying factors of adjustment in pediatric burn patients to facilitate appropriate mental health interventions postinjury (<span class="math inline">\(n=51\)</span>).</li>
+<li><strong><span class="citation" data-cites="figueroa2021structural">Figueroa-Jiménez et al. (<a href="#/references" role="doc-biblioref" onclick="">2021</a>)</span>:</strong> Studying functional connectivity network on individuals with rare genetic disorders (<span class="math inline">\(n=22\)</span>).</li>
+<li><strong><span class="citation" data-cites="fabbricatore2023componentbased">Fabbricatore et al. (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></strong>: Assessment of psycho-social aspects and performance of elite swimmers (<span class="math inline">\(n=161\)</span>).</li>
+<li><strong><span class="citation" data-cites="manuela2013pacific">Manuela and Sibley (<a href="#/references" role="doc-biblioref" onclick="">2013</a>)</span></strong>: Validating self-report measures of identity on a unique cultural group (<span class="math inline">\(n=143\)</span>).</li>
+</ul></li>
+<li>SEM is desirable, but small <span class="math inline">\(n \Rightarrow\)</span> poor finite-sample performance (esp.&nbsp;bias).</li>
+</ul>
 </section>
 <section id="outline" class="slide level2">
 <h2>Outline</h2>
 <ol type="1">
-<li>Brief overview of latent variable models incl.&nbsp;SEMs</li>
-<li>Bias reducing methods</li>
+<li>Brief overview of SEMs
+<ul>
+<li>Model equations</li>
+<li>ML estimation and inference</li>
+<li>Examples of SEMs
+<ul>
+<li>Two-factor SEM</li>
+<li>Latent growth models</li>
+</ul></li>
+</ul></li>
+<li>Bias reducing methods
+<ul>
+<li>A review</li>
+<li>Resampling-based methods</li>
+<li>Alternative approaches</li>
+<li>Reduced-Bias <span class="math inline">\(M\)</span>-estimation (RBM)</li>
+</ul></li>
 <li>Simulation studies and results</li>
 </ol>
 </section>
-<section id="structural-equation-models" class="title-slide slide level1 center">
-<h1>Structural Equation Models</h1>
+<section>
+<section id="structural-equation-models" class="title-slide slide level1 transition-slide center">
+<h1>Structural equation models</h1>
 
 </section>
-
-<section id="bias-reduction-methods" class="title-slide slide level1 center">
-<h1>Bias Reduction Methods</h1>
+<section id="measurement-model" class="slide level2">
+<h2>Measurement model</h2>
+</section>
+<section id="structural-model" class="slide level2">
+<h2>Structural model</h2>
+</section>
+<section id="example-1-political-democracy-example" class="slide level2">
+<h2>Example 1: Political democracy example</h2>
+</section>
+<section id="ml-estimation" class="slide level2">
+<h2>ML estimation</h2>
+</section>
+<section id="properties-of-mle" class="slide level2">
+<h2>Properties of MLE</h2>
+</section>
+<section id="example-2-latent-growth-curve-model" class="slide level2">
+<h2>Example 2: Latent growth curve model</h2>
+</section>
+<section id="reml" class="slide level2">
+<h2>REML</h2>
+</section></section>
+<section>
+<section id="bias-reduction-methods" class="title-slide slide level1 transition-slide center">
+<h1>Bias reduction methods</h1>
 
 </section>
-
-<section id="simulation-studies" class="title-slide slide level1 center">
+<section id="what-is-bias" class="slide level2">
+<h2>What is bias?</h2>
+</section>
+<section id="a-review" class="slide level2">
+<h2>A review</h2>
+</section>
+<section id="firths-adjusted-scores-methods" class="slide level2">
+<h2>Firth’s adjusted scores methods</h2>
+</section>
+<section id="rbm-framework" class="slide level2">
+<h2>RBM framework</h2>
+</section>
+<section id="resampling-based-methods" class="slide level2">
+<h2>Resampling-based methods</h2>
+</section></section>
+<section>
+<section id="simulation-studies" class="title-slide slide level1 transition-slide center">
 <h1>Simulation Studies</h1>
 
 </section>
+<section id="simulation-design" class="slide level2">
+<h2>Simulation design</h2>
+</section>
+<section id="results-two-factor-sem" class="slide level2">
+<h2>Results: Two-factor SEM</h2>
+</section>
+<section id="results-latent-gcm" class="slide level2">
+<h2>Results: Latent GCM</h2>
+</section></section>
+<section id="summary" class="title-slide slide level1 transition-slide center">
+<h1>Summary</h1>
+
+</section>
+
+<section>
+<section id="شكرا-جزيلا" class="title-slide slide level1 thanks-slide center" data-background-image="_extensions/haziqj/kaust/KAUST-Thank-you.jpg" style="padding-top:0.5em;padding-bottom:0em">
+<h1>شكراً جزيلاً</h1>
+<p><a href="https://haziqj.ml/sembias-gradsem"><code>https://haziqj.ml/sembias-gradsem</code></a></p>
+</section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-fabbricatore2023componentbased" class="csl-entry" role="listitem">
+Fabbricatore, Rosa, Maria Iannario, Rosaria Romano, and Domenico Vistocco. 2023. <span>“Component-Based Structural Equation Modeling for the Assessment of Psycho-Social Aspects and Performance of Athletes: <span>Measurement</span> and Evaluation of Swimmers.”</span> <em>AStA Advances in Statistical Analysis</em> 107 (1–2): 343–67. <a href="https://doi.org/10.1007/s10182-021-00417-5">https://doi.org/10.1007/s10182-021-00417-5</a>.
+</div>
+<div id="ref-figueroa2021structural" class="csl-entry" role="listitem">
+Figueroa-Jiménez, Maria Dolores, Cristina Cañete-Massé, María Carbó-Carreté, Daniel Zarabozo-Hurtado, and Joan Guàrdia-Olmos. 2021. <span>“Structural Equation Models to Estimate Dynamic Effective Connectivity Networks in Resting <span class="nocase">fMRI</span>. <span>A</span> Comparison Between Individuals with <span>Down</span> Syndrome and Controls.”</span> <em>Behavioural Brain Research</em> 405 (May): 113188. <a href="https://doi.org/10.1016/j.bbr.2021.113188">https://doi.org/10.1016/j.bbr.2021.113188</a>.
+</div>
+<div id="ref-manuela2013pacific" class="csl-entry" role="listitem">
+Manuela, Sam, and Chris G. Sibley. 2013. <span>“The <span>Pacific Identity</span> and <span>Wellbeing Scale</span> (<span>PIWBS</span>): <span>A Culturally-Appropriate Self-Report Measure</span> for <span>Pacific Peoples</span> in <span>New Zealand</span>.”</span> <em>Social Indicators Research</em> 112 (1): 83–103. <a href="https://doi.org/10.1007/s11205-012-0041-9">https://doi.org/10.1007/s11205-012-0041-9</a>.
+</div>
+<div id="ref-quezada2016explanatory" class="csl-entry" role="listitem">
+Quezada, Lucía, Mónica T. González, and Gabriel A. Mecott. 2016. <span>“Explanatory <span>Model</span> of <span>Resilience</span> in <span>Pediatric Burn Survivors</span>.”</span> <em>Journal of Burn Care &amp; Research</em> 37 (4): 216–25. <a href="https://doi.org/10.1097/bcr.0000000000000261">https://doi.org/10.1097/bcr.0000000000000261</a>.
+</div>
+</div>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="_extensions/haziqj/kaust/KAUST-logo-seed.svg" class="slide-logo"></p>

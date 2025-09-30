@@ -45,6 +45,11 @@ $kaust: (
   .bg-#{$fam}   { background-color: kaust($fam); }
 }
 
+$callout-color-note: kaust(tur);
+$callout-color-tip: kaust(tur, satsh);
+$callout-color-caution: kaust(org);
+$callout-color-warning: kaust(yel);
+$callout-color-important: kaust(mer);
 
 // Font (Raleway)
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
@@ -55,7 +60,7 @@ $kaust: (
 $font-family-sans-serif: "Raleway", "Neo Sans Arabic", sans-serif !default;
 $presentation-font-size-root: 36px;
 
-$presentation-heading-font: "Raleway", sans-serif !default;
+$presentation-heading-font: "Raleway", "Neo Sans Arabic", sans-serif !default;
 $presentation-heading-color: kaust(bla) !default;
 $presentation-heading-font-weight: 200;
 //$presentation-heading-line-height: 2;
@@ -342,9 +347,9 @@ $selection-bg: kaust(tur) !default;
 .slide-number, .reveal.has-logo .slide-number {
   top: unset !important;
   right: unset !important;
-  bottom: 10px !important;
-  left: 10px !important;
-  color: #999 !important;
+  bottom: 8px !important;
+  left: 8px !important;
+  color: mix(white, kaust(gry, neu), 30%) !important;
 }
 
 // Hide logo and slide number on the title slide
@@ -390,7 +395,15 @@ div.cell-output.cell-output-stdout > pre > code {
 
 // Transition slide
 .reveal .transition-slide {
-  background-color: kaust(gry, neu);
+  background-color: mix(white, kaust(gry, neu), 30%);
+}
+
+.reveal .thanks-slide {
+  background-color: kaust(tur);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  direction: rtl;
 }
 
 // Make math fonts smaller

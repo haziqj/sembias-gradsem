@@ -84,26 +84,117 @@ execute:
 
 :::
 
-[{{< placeholder 220 220 format=svg >}}]{.absolute bottom=0 right=0}
+[{{< placeholder 220 220 format=svg >}}]{.absolute bottom=10 right=0}
 
-[[**poll**]{.bg-grn}]{.absolute bottom=210 right=235}
+[[**poll**]{.bg-grn}]{.absolute bottom=220 right=235}
+
+## Context
+
+::: {.callout-note icon=false title="SEM in a nutshell"}
+Analyse multivariate data $\mathbf y=(y_1,\dots,y_p)^\top$ to measure and relate hidden variables $\boldsymbol\eta=(\eta_1,\dots,\eta_q)^\top$, $q \ll p$, and uncover complex patterns.
+:::
+
+::: {.nudge-up-small}
+In the social sciences, latent variables are used to represent **constructs**---the *theoretical, unobserved* concepts of interest.
+:::
+
+::: {.nudge-up}
+:::: {.columns}
+
+::: {.column width="25%"}
+![*(Psychology)*<br>Personality traits](https://unsplash.com/photos/5bYxXawHOQg/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzU5MjMzMTM4fA&force=true&w=640){height=210px}
+:::
+
+::: {.column width="25%"}
+![*(Healthcare)*<br>Quality of life](https://unsplash.com/photos/hIgeoQjS_iE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzU5MjI2Nzg4fA&force=true&w=640){height=210px}
+:::
+
+::: {.column width="25%"}
+![*(Political science)*<br>Social trust](https://unsplash.com/photos/zjeZXMU1SKE/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzU5MjMzNzIxfA&force=true&w=640){height=210px}
+:::
+
+::: {.column width="25%"}
+![*(Education)*<br>Competencies](https://unsplash.com/photos/oXV3bzR7jxI/download?ixid=M3wxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNzU5MjMzNzM1fA&force=true&w=640){height=210px}
+:::
+
+::::
+:::
+
+::: {.aside}
+Photo credits: Unsplash
+[\@dtravisphd](https://unsplash.com/photos/brown-fountain-pen-on-notebook-5bYxXawHOQg),
+[\@impulsq](https://unsplash.com/photos/doctor-holding-red-stethoscope-hIgeoQjS_iE),
+[\@ev](https://unsplash.com/photos/a-group-of-police-standing-next-to-each-other-zjeZXMU1SKE),
+[\@benmullins](https://unsplash.com/photos/person-using-pencil-oXV3bzR7jxI).
+:::
 
 ## Motivation
 
-SEMs used where.
+*"Using SEMs in empirical research is often challenged by small sample sizes."*
 
-Small sample size problem is pervasive.
-
-Examples.
+- Why? Data collection is expensive, time-consuming, or difficult.
+- Rare populations:
+    - **@quezada2016explanatory:** Identifying factors of adjustment in pediatric burn patients to facilitate appropriate mental health interventions postinjury ($n=51$).
+    - **@figueroa2021structural:** Studying functional connectivity network on individuals with rare genetic disorders ($n=22$).
+    - **@fabbricatore2023componentbased**: Assessment of psycho-social aspects and performance of elite swimmers ($n=161$).
+    - **@manuela2013pacific**: Validating self-report measures of identity on a unique cultural group ($n=143$).
+- SEM is desirable, but small $n \Rightarrow$ poor finite-sample performance (esp. bias). 
 
 ## Outline
 
-1. Brief overview of latent variable models incl. SEMs
+1. Brief overview of SEMs
+    - Model equations
+    - ML estimation and inference
+    - Examples of SEMs
+      - Two-factor SEM
+      - Latent growth models
 2. Bias reducing methods
+    - A review
+    - Resampling-based methods
+    - Alternative approaches
+    - Reduced-Bias $M$-estimation (RBM)
 3. Simulation studies and results
 
-# Structural Equation Models
+# Structural equation models {.transition-slide}
 
-# Bias Reduction Methods
+## Measurement model
 
-# Simulation Studies
+## Structural model
+
+## Example 1: Political democracy example
+
+## ML estimation
+
+## Properties of MLE
+
+## Example 2: Latent growth curve model
+
+## REML
+
+# Bias reduction methods {.transition-slide}
+
+## What is bias?
+
+## A review
+
+## Firth's adjusted scores methods
+
+## RBM framework
+
+## Resampling-based methods
+
+# Simulation Studies {.transition-slide}
+
+## Simulation design
+
+## Results: Two-factor SEM 
+
+## Results: Latent GCM
+
+# Summary {.transition-slide}
+
+# شكراً جزيلاً {.thanks-slide  background-image="_extensions/haziqj/kaust/KAUST-Thank-you.jpg" style="padding-top:0.5em;padding-bottom:0em"}
+
+[`https://haziqj.ml/sembias-gradsem`](https://haziqj.ml/sembias-gradsem)
+
+## References
