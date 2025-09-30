@@ -34,28 +34,55 @@ execute:
 ::: {.columns}
 
 ::: {.column width="33%"}
-![Yves Rosseel<br>*Universiteit Gent* | R/`{lavaan}`](https://science-academy.ugent.be/sites/acugain/files/styles/medium_1_1/public/teachers/rosseel_yves.jpg?h=04d92ac6&itok=GUYp9IIm){height=220px}
+<figure class="quarto-figure quarto-figure-center" style="text-align:center;">
+  <img
+    src="https://science-academy.ugent.be/sites/acugain/files/styles/medium_1_1/public/teachers/rosseel_yves.jpg?h=04d92ac6&itok=GUYp9IIm"
+    alt="Yves Rosseel"
+    style="--size:220px; width:var(--size); height:var(--size);
+           object-fit:cover; object-position:top;"
+  >
+  <figcaption>
+    Yves Rosseel<br><em>Universiteit Gent</em> | R/<code>{lavaan}</code>
+  </figcaption>
+</figure>
 :::
 
 ::: {.column width="33%"}
-![Ollie Kemp<br>*University of Warwick*](https://warwick.ac.uk/fac/sci/statistics/staff/research_students/kemp/img_warwick.jpg){height=220px}
+<figure class="quarto-figure quarto-figure-center" style="text-align:center;">
+  <img
+    src="https://warwick.ac.uk/fac/sci/statistics/staff/research_students/kemp/img_warwick.jpg"
+    style="--size:220px; width:var(--size); height:var(--size);
+           object-fit:cover; object-position:top;"
+  >
+  <figcaption>Ollie Kemp<br><em>University of Warwick</em></figcaption>
+</figure>
 :::
 
 ::: {.column width="33%"}
-![Ioannis Kosmidis<br>*University of Warwick*](https://www.ikosmidis.com/img/me.jpg){height=220px}
+<figure class="quarto-figure quarto-figure-center" style="text-align:center;">
+  <img
+    src="https://www.ikosmidis.com/img/me.jpg"
+    style="--size:220px; width:var(--size); height:var(--size);
+           object-fit:cover; object-position:top;"
+  >
+  <figcaption>Ioannis Kosmidis<br><em>University of Warwick</em></figcaption>
+</figure>
 :::
 
 :::
 
-::: {.nudge-down}
+::: {.nudge-up}
 
 > **Jamil, H.**, Rosseel, Y., Kemp, O., & Kosmidis, I. (2025). Bias-Reduced Estimation of Structural Equation Models. *Manuscript in Submission*. [`arXiv`]().
 
+- Source: <https://github.com/haziqj/sembias-gradsem>
+- R Package: <https://github.com/haziqj/brlavaan>
+
 :::
 
-Interactive poll.
+[{{< placeholder 220 220 format=svg >}}]{.absolute bottom=0 right=0}
 
-
+[[**poll**]{.bg-grn}]{.absolute bottom=200 right=235}
 
 ## Motivation
 
