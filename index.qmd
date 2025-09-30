@@ -35,12 +35,14 @@ execute:
 
 ::: {.column width="33%"}
 <figure class="quarto-figure quarto-figure-center" style="text-align:center;">
-  <img
-    src="https://science-academy.ugent.be/sites/acugain/files/styles/medium_1_1/public/teachers/rosseel_yves.jpg?h=04d92ac6&itok=GUYp9IIm"
-    alt="Yves Rosseel"
-    style="--size:220px; width:var(--size); height:var(--size);
-           object-fit:cover; object-position:top;"
-  >
+  <a href="https://lavaan.org" target="_blank">
+    <img
+      src="https://science-academy.ugent.be/sites/acugain/files/styles/medium_1_1/public/teachers/rosseel_yves.jpg?h=04d92ac6&itok=GUYp9IIm"
+      alt="Yves Rosseel"
+      style="--size:220px; width:var(--size); height:var(--size);
+             object-fit:cover; object-position:top;"
+    >
+  </a>
   <figcaption>
     Yves Rosseel<br><em>Universiteit Gent</em> | R/<code>{lavaan}</code>
   </figcaption>
@@ -60,11 +62,13 @@ execute:
 
 ::: {.column width="33%"}
 <figure class="quarto-figure quarto-figure-center" style="text-align:center;">
-  <img
-    src="https://www.ikosmidis.com/img/me.jpg"
-    style="--size:220px; width:var(--size); height:var(--size);
-           object-fit:cover; object-position:top;"
-  >
+  <a href="https://www.ikosmidis.com" target="_blank">
+    <img
+      src="https://www.ikosmidis.com/img/me.jpg"
+      style="--size:220px; width:var(--size); height:var(--size);
+             object-fit:cover; object-position:top;"
+    >
+  </a>
   <figcaption>Ioannis Kosmidis<br><em>University of Warwick</em></figcaption>
 </figure>
 :::
@@ -82,7 +86,7 @@ execute:
 
 [{{< placeholder 220 220 format=svg >}}]{.absolute bottom=0 right=0}
 
-[[**poll**]{.bg-grn}]{.absolute bottom=200 right=235}
+[[**poll**]{.bg-grn}]{.absolute bottom=210 right=235}
 
 ## Motivation
 
