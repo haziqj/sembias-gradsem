@@ -395,7 +395,7 @@ div.cell-output.cell-output-stdout > pre > code {
 
 // Transition slide
 .reveal .transition-slide {
-  background-color: mix(white, kaust(gry, neu), 30%);
+  background-color: mix(white, kaust(gry, neu), 20%);
 }
 
 .reveal .thanks-slide {
@@ -428,8 +428,8 @@ span.math.inline, span.math.display {
 .reveal aside {
   color: kaust(yel);
   position: absolute;
-  top: 690px;
-  left: 25px;
+  bottom: -30px !important;
+  left: 0px !important;
 }
 
 .reveal blockquote {

@@ -50,7 +50,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-1ce964ed88bc48a77d2f7d83c5a8fb42.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-95284f70d0d823e6aa65936afceeca50.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -198,7 +198,7 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 </div></div>
 <div class="nudge-up">
 <blockquote>
-<p><strong>Jamil, H.</strong>, Rosseel, Y., Kemp, O., &amp; Kosmidis, I. (2025). Bias-Reduced Estimation of Structural Equation Models. <em>Manuscript in Submission</em>. <a href=""><code>arXiv</code></a>.</p>
+<p><strong>Jamil, H.</strong>, Rosseel, Y., Kemp, O., &amp; Kosmidis, I. (2025). Bias-Reduced Estimation of Structural Equation Models. <em>Manuscript in Submission</em>. <a href="https://doi.org/10.48550/arXiv.2509.25419"><code>arXiv:2509.25419</code></a>.</p>
 </blockquote>
 <ul>
 <li>Source: <a href="https://github.com/haziqj/sembias-gradsem" class="uri">https://github.com/haziqj/sembias-gradsem</a></li>
@@ -318,6 +318,22 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 </section>
 <section id="properties-of-mle" class="slide level2">
 <h2>Properties of MLE</h2>
+<p>Let <span class="math inline">\(\bar{\vartheta}\)</span> be the true parameter value. Subject to standard regularity conditions <span class="citation" data-cites="cox1979theoretical">(<a href="#/references" role="doc-biblioref" onclick="">Cox and Hinkley 1979</a>)</span>, as <span class="math inline">\(n\to\infty\)</span>,</p>
+<p><span class="math display">\[
+\sqrt n (\hat\vartheta - \bar\vartheta) \xrightarrow{\;\;\text D\;\;}
+\begin{cases}
+\text N_m\left(\mathbf 0, \big[ U(\bar\vartheta)V(\bar\vartheta)^{-1} U(\bar\vartheta) \big]^{-1} \right) &amp;\text{model misspecified} \\
+\text{N}_m\big(\mathbf 0, I(\bar\vartheta)^{-1} \big) &amp;\text{otherwise}
+\end{cases}
+\]</span> where</p>
+<ul>
+<li><span class="math inline">\(I(\vartheta) = \mathbb{E}\left[ \nabla\ell_1(\vartheta)\nabla\ell_1(\vartheta)^\top \right]\)</span> is the <em>Fisher information</em>;</li>
+<li><span class="math inline">\(U(\vartheta) = -\mathbb{E}\left[ \nabla\nabla^\top \ell_1(\vartheta) \right]\)</span> is the <em>sensitivity matrix</em>; and</li>
+<li><span class="math inline">\(V(\vartheta) = \mathbb{E}\left[ \nabla\ell_1(\vartheta)\nabla\ell_1(\vartheta)^\top \right]\)</span> is the <em>variability matrix</em>.</li>
+</ul>
+<div class="nudge-up">
+<p>Calculation of SEs are based off estimates of these matrices. The “sandwich” matrix gives robust SEs <span class="citation" data-cites="satorra1994corrections savalei2014understanding">(<a href="#/references" role="doc-biblioref" onclick="">Satorra and Bentler 1994</a>; <a href="#/references" role="doc-biblioref" onclick="">Savalei 2014</a>)</span>.</p>
+</div>
 </section>
 <section id="example-2-latent-growth-curve-model" class="slide level2">
 <h2>Example 2: Latent growth curve model</h2>
@@ -332,6 +348,64 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 </section>
 <section id="what-is-bias" class="slide level2">
 <h2>What is bias?</h2>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bias of an estimator</strong></p>
+</div>
+<div class="callout-content">
+<p><span id="eq-bias"><span class="math display">\[
+\mathcal B_{\bar\vartheta}(\hat\vartheta) = \mathbb E\left[\hat\vartheta - \bar\vartheta\right]
+\tag{1}\]</span></span></p>
+</div>
+</div>
+</div>
+<p>Consider the stochastic Taylor expansion of <span class="math inline">\(s(\hat\vartheta)=\nabla\ell(\vartheta)=0\)</span> around <span class="math inline">\(\bar\vartheta\)</span>. For many common estimators including MLE, the bias function is: <span class="math display">\[
+\mathcal B_{\bar\vartheta} = \frac{b_1(\bar\vartheta)}{n} +  \frac{b_2(\bar\vartheta)}{n^2} + \frac{b_3(\bar\vartheta)}{n^3} +O(n^{-4}).
+\]</span></p>
+<div class="nudge-up">
+<p>Bias arises because the roots of the score equations are <strong>not exactly centred at <span class="math inline">\(\bar\vartheta\)</span></strong>, due to:</p>
+<ol type="a">
+<li>The curvature of the score <span class="math inline">\(s(\vartheta)\)</span>; and</li>
+<li>The randomness of the score itself.</li>
+</ol>
+</div>
+</section>
+<section id="illustration" class="slide level2">
+<h2>Illustration</h2>
+<h3 id="biased-mle-estimator-for-sigma2">Biased MLE estimator for <span class="math inline">\(\sigma^2\)</span></h3>
+<p>Consider <span class="math inline">\(X_1,\dots,X_n \sim \text N(0, \sigma^2)\)</span>. The MLE for <span class="math inline">\(\sigma^2\)</span> is <span class="math inline">\(\hat\sigma^2 = \frac{1}{n}\sum_{i=1}^n X_i^2\)</span>.</p>
+</section>
+<section id="illustration-cont." class="slide level2">
+<h2>Illustration (cont.)</h2>
+<p>What’s happening to the score functions?</p>
+</section>
+<section id="adjusting-score-equations" class="slide level2">
+<h2>Adjusting score equations</h2>
+</section>
+<section id="if-youre-interested" class="slide level2">
+<h2>If you’re interested…</h2>
+<h3 id="and-love-differentiation">…and love differentiation ️❤️🤓</h3>
+<p>For a comprehensive treatment of bias-reduction methods,</p>
+<ul>
+<li>Start here: <span class="citation" data-cites="cox1968general">Cox and Snell (<a href="#/references" role="doc-biblioref" onclick="">1968</a>)</span></li>
+<li>Follow up with: <span class="citation" data-cites="firth1993bias">Firth (<a href="#/references" role="doc-biblioref" onclick="">1993</a>)</span>; <span class="citation" data-cites="kosmidis2009bias">Kosmidis and Firth (<a href="#/references" role="doc-biblioref" onclick="">2009</a>)</span>; <span class="citation" data-cites="kosmidis2014bias">Kosmidis (<a href="#/references" role="doc-biblioref" onclick="">2014</a>)</span></li>
+</ul>
+<div class="fragment">
+<div class="nudge-up">
+<p>By the way, the <span class="math inline">\(O(n^{-1})\)</span> bias term <span class="math inline">\(b_1(\bar\vartheta)/n = -I(\bar\vartheta)^{-1} C(\bar\vartheta)\)</span>, where <span class="math display">\[
+\begin{gathered}
+C_a(\vartheta) = \frac{1}{2} \operatorname{tr} \left[
+I(\vartheta)^{-1}\big( G_a(\vartheta) + H_a(\vartheta) \big)
+\right]\\
+G_a(\vartheta)=\mathbb E[s(\vartheta)s(\vartheta)^\top s_a(\vartheta)]
+\quad\quad
+H_a(\vartheta)=-\mathbb E[I(\vartheta)s_a(\vartheta)] \\
+a=1,\dots,m
+\end{gathered}
+\]</span> where <span class="math inline">\(s(\vartheta) = \nabla\ell(\vartheta)\)</span> is the score function.</p>
+</div>
+</div>
 </section>
 <section id="a-review" class="slide level2">
 <h2>A review</h2>
@@ -373,17 +447,38 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <h2>References</h2>
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-cox1979theoretical" class="csl-entry" role="listitem">
+Cox, D. R., and D. V. Hinkley. 1979. <em>Theoretical <span>Statistics</span></em>. New York: <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/b14832">https://doi.org/10.1201/b14832</a>.
+</div>
+<div id="ref-cox1968general" class="csl-entry" role="listitem">
+Cox, D. R., and E. J. Snell. 1968. <span>“A <span>General Definition</span> of <span>Residuals</span>.”</span> <em>Journal of the Royal Statistical Society. Series B (Methodological)</em> 30 (2): 248–75. <a href="https://www.jstor.org/stable/2984505">https://www.jstor.org/stable/2984505</a>.
+</div>
 <div id="ref-fabbricatore2023componentbased" class="csl-entry" role="listitem">
 Fabbricatore, Rosa, Maria Iannario, Rosaria Romano, and Domenico Vistocco. 2023. <span>“Component-Based Structural Equation Modeling for the Assessment of Psycho-Social Aspects and Performance of Athletes: <span>Measurement</span> and Evaluation of Swimmers.”</span> <em>AStA Advances in Statistical Analysis</em> 107 (1–2): 343–67. <a href="https://doi.org/10.1007/s10182-021-00417-5">https://doi.org/10.1007/s10182-021-00417-5</a>.
 </div>
 <div id="ref-figueroa2021structural" class="csl-entry" role="listitem">
 Figueroa-Jiménez, Maria Dolores, Cristina Cañete-Massé, María Carbó-Carreté, Daniel Zarabozo-Hurtado, and Joan Guàrdia-Olmos. 2021. <span>“Structural Equation Models to Estimate Dynamic Effective Connectivity Networks in Resting <span class="nocase">fMRI</span>. <span>A</span> Comparison Between Individuals with <span>Down</span> Syndrome and Controls.”</span> <em>Behavioural Brain Research</em> 405 (May): 113188. <a href="https://doi.org/10.1016/j.bbr.2021.113188">https://doi.org/10.1016/j.bbr.2021.113188</a>.
 </div>
+<div id="ref-firth1993bias" class="csl-entry" role="listitem">
+Firth, David. 1993. <span>“Bias Reduction of Maximum Likelihood Estimates.”</span> <em>Biometrika</em> 80 (1): 27–38. <a href="https://doi.org/10.1093/biomet/80.1.27">https://doi.org/10.1093/biomet/80.1.27</a>.
+</div>
+<div id="ref-kosmidis2014bias" class="csl-entry" role="listitem">
+Kosmidis, Ioannis. 2014. <span>“Bias in Parametric Estimation: Reduction and Useful Side-Effects.”</span> <em>WIREs Computational Statistics</em> 6 (3): 185–96. <a href="https://doi.org/10.1002/wics.1296">https://doi.org/10.1002/wics.1296</a>.
+</div>
+<div id="ref-kosmidis2009bias" class="csl-entry" role="listitem">
+Kosmidis, Ioannis, and David Firth. 2009. <span>“Bias Reduction in Exponential Family Nonlinear Models.”</span> <em>Biometrika</em> 96 (4): 793–804. <a href="https://academic.oup.com/biomet/article-abstract/96/4/793/220575">https://academic.oup.com/biomet/article-abstract/96/4/793/220575</a>.
+</div>
 <div id="ref-manuela2013pacific" class="csl-entry" role="listitem">
 Manuela, Sam, and Chris G. Sibley. 2013. <span>“The <span>Pacific Identity</span> and <span>Wellbeing Scale</span> (<span>PIWBS</span>): <span>A Culturally-Appropriate Self-Report Measure</span> for <span>Pacific Peoples</span> in <span>New Zealand</span>.”</span> <em>Social Indicators Research</em> 112 (1): 83–103. <a href="https://doi.org/10.1007/s11205-012-0041-9">https://doi.org/10.1007/s11205-012-0041-9</a>.
 </div>
 <div id="ref-quezada2016explanatory" class="csl-entry" role="listitem">
 Quezada, Lucía, Mónica T. González, and Gabriel A. Mecott. 2016. <span>“Explanatory <span>Model</span> of <span>Resilience</span> in <span>Pediatric Burn Survivors</span>.”</span> <em>Journal of Burn Care &amp; Research</em> 37 (4): 216–25. <a href="https://doi.org/10.1097/bcr.0000000000000261">https://doi.org/10.1097/bcr.0000000000000261</a>.
+</div>
+<div id="ref-satorra1994corrections" class="csl-entry" role="listitem">
+Satorra, Albert, and Pete M. Bentler. 1994. <span>“Corrections to Test Statistics and Standard Errors in Covariance Structure Analysis.”</span> In <em>Latent Variables Analysis: <span>Applications</span> for Developmental Research</em>, 399–419. Thousand Oaks, CA, US: Sage Publications, Inc.
+</div>
+<div id="ref-savalei2014understanding" class="csl-entry" role="listitem">
+Savalei, Victoria. 2014. <span>“Understanding <span>Robust Corrections</span> in <span>Structural Equation Modeling</span>.”</span> <em>Structural Equation Modeling: A Multidisciplinary Journal</em> 21 (1): 149–60. <a href="https://doi.org/10.1080/10705511.2013.824793">https://doi.org/10.1080/10705511.2013.824793</a>.
 </div>
 </div>
 </section></section>

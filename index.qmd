@@ -77,7 +77,7 @@ execute:
 
 ::: {.nudge-up}
 
-> **Jamil, H.**, Rosseel, Y., Kemp, O., & Kosmidis, I. (2025). Bias-Reduced Estimation of Structural Equation Models. *Manuscript in Submission*. [`arXiv`]().
+> **Jamil, H.**, Rosseel, Y., Kemp, O., & Kosmidis, I. (2025). Bias-Reduced Estimation of Structural Equation Models. *Manuscript in Submission*. [`arXiv:2509.25419`](https://doi.org/10.48550/arXiv.2509.25419).
 
 - Source: <https://github.com/haziqj/sembias-gradsem>
 - R Package: <https://github.com/haziqj/brlavaan>
@@ -167,6 +167,28 @@ Photo credits: Unsplash
 
 ## Properties of MLE
 
+Let $\bar{\vartheta}$ be the true parameter value.
+Subject to standard regularity conditions [@cox1979theoretical], as $n\to\infty$,
+
+$$
+\sqrt n (\hat\vartheta - \bar\vartheta) \xrightarrow{\;\;\text D\;\;} 
+\begin{cases}
+\text N_m\left(\mathbf 0, \big[ U(\bar\vartheta)V(\bar\vartheta)^{-1} U(\bar\vartheta) \big]^{-1} \right) &\text{model misspecified} \\
+\text{N}_m\big(\mathbf 0, I(\bar\vartheta)^{-1} \big) &\text{otherwise}
+\end{cases}
+$$
+where
+
+- $I(\vartheta) = \mathbb{E}\left[ \nabla\ell_1(\vartheta)\nabla\ell_1(\vartheta)^\top \right]$ is the *Fisher information*;
+- $U(\vartheta) = -\mathbb{E}\left[ \nabla\nabla^\top \ell_1(\vartheta) \right]$ is the *sensitivity matrix*; and
+- $V(\vartheta) = \mathbb{E}\left[ \nabla\ell_1(\vartheta)\nabla\ell_1(\vartheta)^\top \right]$ is the *variability matrix*.
+
+::: {.nudge-up}
+Calculation of SEs are based off estimates of these matrices.
+The "sandwich" matrix gives robust SEs [@satorra1994corrections;@savalei2014understanding].
+:::
+
+
 ## Example 2: Latent growth curve model
 
 ## REML
@@ -174,6 +196,67 @@ Photo credits: Unsplash
 # Bias reduction methods {.transition-slide}
 
 ## What is bias?
+
+::: {.callout-tip icon=false}
+#### Bias of an estimator
+$$
+\mathcal B_{\bar\vartheta}(\hat\vartheta) = \mathbb E\left[\hat\vartheta - \bar\vartheta\right] 
+$${#eq-bias}
+:::
+
+Consider the stochastic Taylor expansion of $s(\hat\vartheta)=\nabla\ell(\vartheta)=0$ around $\bar\vartheta$.
+For many common estimators including MLE, the bias function is:
+$$
+\mathcal B_{\bar\vartheta} = \frac{b_1(\bar\vartheta)}{n} +  \frac{b_2(\bar\vartheta)}{n^2} + \frac{b_3(\bar\vartheta)}{n^3} +O(n^{-4}).
+$$
+
+::: {.nudge-up}
+Bias arises because the roots of the score equations are **not exactly centred at $\bar\vartheta$**, due to:
+
+a. The curvature of the score $s(\vartheta)$; and
+b. The randomness of the score itself.
+:::
+
+## Illustration
+
+### Biased MLE estimator for $\sigma^2$ 
+
+Consider $X_1,\dots,X_n \sim \text N(0, \sigma^2)$. The MLE for $\sigma^2$ is $\hat\sigma^2 = \frac{1}{n}\sum_{i=1}^n X_i^2$.
+
+## Illustration (cont.)
+
+What's happening to the score functions?
+
+## Adjusting score equations
+
+
+## If you're interested... 
+
+### ...and love differentiation ️❤️🤓
+
+For a comprehensive treatment of bias-reduction methods,
+
+- Start here: @cox1968general
+- Follow up with: @firth1993bias; @kosmidis2009bias; @kosmidis2014bias
+
+
+::: {.fragment}
+::: {.nudge-up}
+By the way, the $O(n^{-1})$ bias term $b_1(\bar\vartheta)/n = -I(\bar\vartheta)^{-1} C(\bar\vartheta)$, where
+$$
+\begin{gathered}
+C_a(\vartheta) = \frac{1}{2} \operatorname{tr} \left[
+I(\vartheta)^{-1}\big( G_a(\vartheta) + H_a(\vartheta) \big)
+\right]\\ 
+G_a(\vartheta)=\mathbb E[s(\vartheta)s(\vartheta)^\top s_a(\vartheta)] 
+\quad\quad 
+H_a(\vartheta)=-\mathbb E[I(\vartheta)s_a(\vartheta)] \\
+a=1,\dots,m
+\end{gathered}
+$$
+where $s(\vartheta) = \nabla\ell(\vartheta)$ is the score function.
+:::
+:::
 
 ## A review
 
