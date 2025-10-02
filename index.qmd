@@ -26,10 +26,16 @@ bibliography: refs.bib
 execute:
   echo: false
   freeze: auto
-  cache: true
+  cache: false
 ---
 
 ## 
+
+```{r}
+#| include: false
+source("R/sigma2.r")
+```
+
 
 ::: {.columns}
 
@@ -204,6 +210,8 @@ $$
 $${#eq-bias}
 :::
 
+
+::: {.nudge-up}
 Consider the stochastic Taylor expansion of $s(\hat\vartheta)=\nabla\ell(\vartheta)=0$ around $\bar\vartheta$.
 For many common estimators including MLE, the bias function is:
 $$
@@ -213,8 +221,11 @@ $$
 ::: {.nudge-up}
 Bias arises because the roots of the score equations are **not exactly centred at $\bar\vartheta$**, due to:
 
+::: {.nudge-up-small}
 a. The curvature of the score $s(\vartheta)$; and
 b. The randomness of the score itself.
+:::
+:::
 :::
 
 ## Illustration
@@ -223,11 +234,41 @@ b. The randomness of the score itself.
 
 Consider $X_1,\dots,X_n \sim \text N(0, \sigma^2)$. The MLE for $\sigma^2$ is $\hat\sigma^2 = \frac{1}{n}\sum_{i=1}^n X_i^2$.
 
+::: {.panel-tabset}
+
+### $n=10$
+
+```{r}
+#| out-width: 100%
+#| fig-height: 2.75
+#| fig-width: 7
+plot_sigma2_bias(n = 5)
+```
+
+### $n=25$
+
+```{r}
+#| out-width: 100%
+#| fig-height: 2.75
+#| fig-width: 7
+plot_sigma2_bias(n = 25)
+```
+
+### $n=1000$
+
+```{r}
+#| out-width: 100%
+#| fig-height: 2.75
+#| fig-width: 7
+plot_sigma2_bias(n = 1000)
+```
+
+:::
+
 ## Illustration (cont.)
 
-What's happening to the score functions?
+### Score functions are random too
 
-## Adjusting score equations
 
 
 ## If you're interested... 
@@ -274,7 +315,12 @@ where $s(\vartheta) = \nabla\ell(\vartheta)$ is the score function.
 
 ## Results: Latent GCM
 
-# Summary {.transition-slide}
+# Conclusion {.transition-slide}
+
+## Summary & future work
+
+## Software
+
 
 # شكراً جزيلاً {.thanks-slide  background-image="_extensions/haziqj/kaust/KAUST-Thank-you.jpg" style="padding-top:0.5em;padding-bottom:0em"}
 
