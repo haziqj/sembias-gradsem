@@ -36,6 +36,7 @@ execute:
 source("R/sigma2.R")
 source("R/score.R")
 source("R/adjscore.R")
+source("R/results.R")
 ```
 
 
@@ -477,16 +478,155 @@ This moves $\hat\theta$ in the direction $A(\hat\vartheta)$ away from the bias, 
 
 ## Simulation design
 
+<!-- - Data generating models: -->
+<!--    1. Two-factor SEM ($m=13$ estimable params). -->
+<!--    2. Latent growth curve model ($m=6$ estimable params). -->
+   
+- Sample size: $n\in \{15,20,50,100,1000\}$
+
+- Item reliability: Low or High ($\operatorname{Rel} = p^{-1}\sum_{j=1}^p \boldsymbol\Sigma_{jj}^* / \boldsymbol\Sigma_{jj}$)
+
+- Distributional assumption: Normal or Non-normal
+
+```{r}
+#| fig-height: 3.6
+#| fig-width: 9
+#| fig-align: center
+#| out-width: 100%
+n <- 1000
+rho <- 0.3
+Sigma <- matrix(c(1, rho, rho, 1), nrow = 2)
+dat <- list()
+dat$Normal <-
+  covsim::rIG(n, Sigma, skewness = rep(0, 2), excesskurtosis = rep(0, 2))[[1]]
+## dat$Kurtosis <-  # kurtosis
+##   covsim::rIG(n, Sigma, skewness = rep(0, 2), excesskurtosis = rep(6, 2))[[1]]
+dat$`Non-normal` <-  # non-normal
+  covsim::rIG(n, Sigma, skewness = rep(-2, 2), excesskurtosis = rep(6, 2))[[1]]
+
+# get max and min for x and y axes
+xyminmax <- 
+  map(dat, as.data.frame) |>
+  bind_rows() |>
+  summarise(
+    x_min = min(V1),
+    x_max = max(V1),
+    y_min = min(V2),
+    y_max = max(V2)
+  ) |> 
+  unlist() 
+
+allplots <- imap(dat, \(x, idx) {
+  # mycols <- rev(RColorBrewer::brewer.pal(3, "Set1"))
+  mycols <- c("#00A6AA",  "#F18F00", "black")
+  names(mycols) <- names(dat)
+  
+  p <-
+    as.data.frame(x) |>
+    ggplot(aes(x = V1, y = V2)) +
+    geom_point(alpha = 0.5, size = 1, col = mycols[idx]) +
+    geom_density_2d(col = "black") +
+    theme_minimal() +
+    theme(
+      legend.position = "none",
+      axis.text = element_blank(),
+      axis.ticks = element_blank()
+    ) +
+    scale_x_continuous(limits = c(xyminmax["x_min"], xyminmax["x_max"])) +
+    scale_y_continuous(limits = c(xyminmax["y_min"], xyminmax["y_max"])) +
+    labs(title = glue::glue("{idx}"), x = NULL, y = NULL)
+  ggExtra:::ggMarginal(p, fill = mycols[idx], alpha = 0.5, size = 10, 
+                       trim = idx != "Non-normal") 
+})
+cowplot::plot_grid(plotlist = allplots, nrow = 1)
+```
+
+
 ## Results: Two-factor SEM 
 
+::: {.nudge-up-small}
+
+```{r}
+#| out-width: 100%
+#| fig-align: center
+#| fig-height: 5.5
+#| fig-width: 9
+p1
+```
+
+:::
+
+
+## Results: Two-factor SEM (cont.)
+
+```{r}
+#| out-width: 100%
+#| fig-align: center
+#| fig-height: 5.4
+#| fig-width: 9
+p2
+```
+
 ## Results: Latent GCM
+
+::: {.nudge-up}
+
+```{r}
+#| out-width: 100%
+#| fig-align: center
+#| fig-height: 5.4
+#| fig-width: 9
+p3
+```
+
+:::
 
 # Conclusion {.transition-slide}
 
 ## Summary & future work
 
-## Software
+RBM applied to small sample estimation of SEM show key advantages:
 
+- Improved estimator performances (mean & median bias, RMSE, coverage).
+
+- Computationally efficient (c.f. resampling methods).
+
+- Robust to model misspecification.
+
+Future work include
+
+1. Computational improvements for iRBM.
+
+2. Plugin penalties to limit exploration of ill-conditioned regions.
+
+3. Extension to other SEM families, e.g.
+   - Mediation models, latent interactions, etc.
+   - Alternative to ML estimation e.g. WLS, DWLS, etc.
+
+## Software 
+
+```{r}
+#| include: false
+library(brlavaan)
+dat <- brlavaan::gen_data_twofac(n = 50)
+colnames(dat) <- paste0("y", 1:6)
+options(width = 180)
+```
+
+
+```{r}
+#| echo: true
+#| cache: true
+# pak::pak("haziqj/brlavaan")
+library(brlavaan)
+
+mod <- "
+  eta1 =~ y1 + y2 + y3
+  eta2 =~ y4 + y5 + y6
+"
+fit <- brsem(model = mod, data = dat, estimator.args = list(rbm = "implicit"))
+summary(fit)
+```
 
 # شكراً جزيلاً {.thanks-slide  background-image="_extensions/haziqj/kaust/KAUST-Thank-you.jpg" style="padding-top:0.5em;padding-bottom:0em"}
 

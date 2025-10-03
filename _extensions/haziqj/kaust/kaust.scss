@@ -392,8 +392,9 @@ div.cell-output.cell-output-stdout > pre > code {
   background-color: mix(kaust(blu, nshd), white, 0%);
   padding: 0.25em;
   border-radius: 0px;  
-  overflow-y: visible;
-  // max-height: none;
+  // overflow-y: visible;
+  overflow-y: auto;
+  max-height: 320px;
 }
 
 // Make column text smaller
