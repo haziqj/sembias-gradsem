@@ -83,6 +83,8 @@ plot_sigma2_bias <- function(n = 10, B = 1000, sigma = 1, seed = 1) {
     ) +
     theme_minimal() +
     theme(
+      axis.title.x = element_text(hjust = 1, vjust = 8),
+      plot.margin = margin_part(b = -10),      
       legend.position = c(0.8, 0.8),
       legend.key.width = unit(1.2, "cm"),
       legend.title = element_text(hjust = 1) # Right-align legend text

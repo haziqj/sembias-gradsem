@@ -33,7 +33,9 @@ execute:
 
 ```{r}
 #| include: false
-source("R/sigma2.r")
+source("R/sigma2.R")
+source("R/score.R")
+source("R/adjscore.R")
 ```
 
 
@@ -241,7 +243,8 @@ Consider $X_1,\dots,X_n \sim \text N(0, \sigma^2)$. The MLE for $\sigma^2$ is $\
 ```{r}
 #| out-width: 100%
 #| fig-height: 2.75
-#| fig-width: 7
+#| fig-width: 7.4
+#| fig-align: center
 plot_sigma2_bias(n = 5)
 ```
 
@@ -250,7 +253,8 @@ plot_sigma2_bias(n = 5)
 ```{r}
 #| out-width: 100%
 #| fig-height: 2.75
-#| fig-width: 7
+#| fig-width: 7.4
+#| fig-align: center
 plot_sigma2_bias(n = 25)
 ```
 
@@ -259,7 +263,8 @@ plot_sigma2_bias(n = 25)
 ```{r}
 #| out-width: 100%
 #| fig-height: 2.75
-#| fig-width: 7
+#| fig-width: 7.4
+#| fig-align: center
 plot_sigma2_bias(n = 1000)
 ```
 
@@ -269,7 +274,39 @@ plot_sigma2_bias(n = 1000)
 
 ### Score functions are random too
 
+The score is $s(\sigma^2)=\ell'(\sigma^2) = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}\sum_{i=1}^n X_i^2$.
 
+::: {.panel-tabset}
+
+### $n=10$
+
+```{r}
+#| out-width: 100%
+#| fig-height: 2.75
+#| fig-width: 7.4
+#| fig-align: center
+plot_sigma2_score(n = 15) + coord_cartesian(ylim = c(-8, 28))
+```
+
+### $n=25$
+
+```{r}
+#| out-width: 100%
+#| fig-height: 2.75
+#| fig-width: 7.4
+plot_sigma2_score(n = 50, showbias = FALSE) + coord_cartesian(ylim = c(-8, 300))
+```
+
+### $n=1000$
+
+```{r}
+#| out-width: 100%
+#| fig-height: 2.75
+#| fig-width: 7.4
+plot_sigma2_score(n = 1000, showbias = FALSE)
+```
+
+:::
 
 ## If you're interested... 
 
@@ -301,7 +338,86 @@ where $s(\vartheta) = \nabla\ell(\vartheta)$ is the score function.
 
 ## A review
 
+::: {.nudge-up-large}
+![](figures/bias.png){fig-align=center width=67%}
+:::
+
+::: {.nudge-up-small}
+::: {.nudge-up-large}
+```{r}
+#| html-table-processing: none
+library(gt)
+library(dplyr)
+
+df <- tribble(
+  ~Method, ~Model, ~BG_theta0, ~Type, ~E, ~d, ~theta_hat,
+  "Asymptotic bias correction", "full", "analytical", "explicit", "✓","✓","✓",
+  "Adjusted score functions", "full", "analytical", "implicit", "✓","✓","✗",
+  "Bootstrap", "partial", "simulation", "explicit", "✗","✗","✓",
+  "Jackknife", "partial", "simulation", "explicit", "✗","✗","✓",
+  "Indirect inference", "full", "simulation", "implicit", "✗","✗","✓",
+  "Explicit RBM", "partial", "analytical", "explicit", "✗","✓","✓",
+  "Implicit RBM", "partial", "analytical", "implicit", "✗","✓","✗"
+)
+
+gt(df, rownames_to_stub = TRUE) |>
+  text_transform(
+    locations = cells_body(columns = c(E, d, theta_hat)),
+    fn = \(x) {
+      x |>
+        str_replace("✓", '<span style="color:#004C59">✓</span>') |>
+        str_replace("✗", '<span style="color:#b10f2e">✗</span>')
+      # gt::html(out) 
+  }) |>
+  tab_spanner(md("**Requirements**"), columns = c(E, d, theta_hat)) |>
+  cols_label(
+    BG_theta0 = md("$\\mathcal{B}(\\bar\\vartheta)$"),
+    E = md("$\\mathbb{E}(\\cdot)$"),
+    d = md("$\\hspace{2pt} \\partial \\cdot \\hspace{2pt}$"),
+    theta_hat = md("$\\hspace{4pt} \\hat\\vartheta \\hspace{4pt}$")
+  ) |>
+  cols_align(
+    align = "center",
+    columns = c(E, d, theta_hat)
+  ) |>
+  tab_style(
+    style = "font-weight: bold",
+    locations = cells_column_labels()
+  ) |>
+  tab_options(
+    table.font.size = px(25),
+    table.width = pct(95)
+    # data_row.padding = px(4)
+  ) |>
+  opt_table_font(
+    font = list(
+      google_font("Raleway"),  # loads the font for the table
+      default_fonts()          # sensible fallbacks
+    )
+  )
+```
+:::
+:::
+
+::: aside
+::: {.footnotesize-text}
+1--@efron1975defining, @cordeiro1991bias; 2--@firth1993bias, @kosmidis2009bias; 3--@efron1994introduction, @hall1988bootstrap; 4--@quenouille1956notes, @efron1982jackknife; 5--@gourieroux1993indirect, @mackinnon1998approximate
+:::
+:::
+
 ## Firth's adjusted scores methods
+
+Instead of solving [$s(\vartheta)=0$]{.text-org}, solve [$s(\vartheta) + \mathcal B(\vartheta) I(\vartheta)=0$]{.text-tur}.
+
+<!-- ```{r} -->
+<!-- #| out-width: 100% -->
+<!-- #| fig-align: center -->
+<!-- #| fig-height: 4 -->
+<!-- #| fig-width: 8 -->
+<!-- plot_adjusted_score() -->
+<!-- ``` -->
+
+![](figures/adjusted_score.gif){fig-align=center width=100%}
 
 ## RBM framework
 

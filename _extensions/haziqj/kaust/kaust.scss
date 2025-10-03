@@ -428,7 +428,7 @@ span.math.inline, span.math.display {
 .reveal aside {
   color: kaust(yel);
   position: absolute;
-  bottom: -30px !important;
+  bottom: -15px !important;
   left: 0px !important;
 }
 
@@ -439,6 +439,10 @@ span.math.inline, span.math.display {
 .small-text {
   font-size: 0.6em;
   margin-top: -5px;
+}
+
+.footnotesize-text {
+  font-size: 80%;
 }
 
 .cell-output-display p {
@@ -460,7 +464,12 @@ span.math.inline, span.math.display {
 
 // Too much space after figures
 div.quarto-figure.quarto-figure-center {
-    margin: 0 !important;  /* '0' eliminates the margin, and '!important' ensures this rule takes precedence */
+    margin: 0 !important; 
+    padding: 0 !important;
+}
+
+div.figure {
+  margin: 0 !important;
 }
 
 // Target the table class for the striped and hover effects, then enhance it for the booktabs style
