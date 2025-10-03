@@ -81,7 +81,7 @@ $selection-bg: kaust(tur) !default;
 
 .reveal p {
   font-weight: 350;
-  margin-top: 1em;
+  margin-top: 0.9em;
   font-size: 100%;
   padding-bottom: 5px;
 }
@@ -191,6 +191,18 @@ $selection-bg: kaust(tur) !default;
   display: inline-block;
 }
 
+// Inline box for emphasis
+.reveal .slides span.inline-box {
+  border: 1px solid black;
+  color: white;
+  border-radius: 4px;
+  padding: 0.1em 0.3em;
+  background-color: kaust(tur);
+  display: inline-block;        
+}
+
+
+
 // lists
 
 // Unordered lists
@@ -200,13 +212,17 @@ $selection-bg: kaust(tur) !default;
   padding-left: 16px;
   font-size: 92%;
   margin-top: 0;
-  padding-top: 0;
+  padding-top: 0em;
+  margin-bottom: 0 !important;
 
   li::marker {
     // color: mix($ubdblue, white, 70%);/**/
     color: kaust(gry, nshd);
   }
 }
+
+// .reveal ul, .reveal ol { margin-bottom: 0.3em; }
+// .reveal ul + p, .reveal ol + p { margin-top: -1em; padding-top: -1em; }
 
 .reveal ul ul {
   list-style: none;
@@ -412,9 +428,38 @@ span.math.inline, span.math.display {
 }
 
 // Reduce space between display equation
-.reveal p:has(> .math.display) {
-  margin-bottom: -0.5em;  
+/* Shrink the display-math block margins (works before/after render) */
+.reveal .math.display,
+.reveal mjx-container[display="true"],   /* MathJax v3 */
+.reveal .katex-display {                 /* KaTeX */
+  margin-top: 1em !important;
+  margin-bottom: 0.2em !important;
+  padding-bottom: -0.5em !important;
 }
+
+/* When a paragraph WRAPS a display equation, reduce its margins */
+.reveal p:has(> .math.display),
+.reveal p:has(> mjx-container[display="true"]),
+.reveal p:has(> .katex-display) {
+  margin-top: 0.2em !important;
+  margin-bottom: 0.2em !important;
+}
+
+/* Reduce the gap BEFORE the next block after an equation */
+.reveal p:has(> .math.display) + *,
+.reveal p:has(> mjx-container[display="true"]) + *,
+.reveal p:has(> .katex-display) + * {
+  margin-top: 0.3em !important;
+}
+
+/* Lists: keep bottom margin modest, and tighten paragraph right after */
+//.reveal ul, .reveal ol { margin-bottom: 0.3em; }
+//.reveal ul + p, .reveal ol + p { margin-top: 0.3em; }
+
+
+
+
+
 
 .reveal figcaption {
   margin-top: -0.2em;

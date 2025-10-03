@@ -174,7 +174,7 @@ plot_adjusted_score_anim <- function(
       name = NULL
     ) +
     coord_cartesian(ylim = ylim, expand = FALSE) +
-    labs(y = expression(Score~s(vartheta)), x = expression(theta)) +
+    labs(y = "Score") +
     theme_minimal() +
     theme(axis.text.x = element_text(size = 12)) +
     

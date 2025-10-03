@@ -213,7 +213,6 @@ $${#eq-bias}
 :::
 
 
-::: {.nudge-up}
 Consider the stochastic Taylor expansion of $s(\hat\vartheta)=\nabla\ell(\vartheta)=0$ around $\bar\vartheta$.
 For many common estimators including MLE, the bias function is:
 $$
@@ -224,11 +223,11 @@ $$
 Bias arises because the roots of the score equations are **not exactly centred at $\bar\vartheta$**, due to:
 
 ::: {.nudge-up-small}
-a. The curvature of the score $s(\vartheta)$; and
+a. The curvature of the score $s(\vartheta)$ creating asymmetry; and
 b. The randomness of the score itself.
 :::
 :::
-:::
+
 
 ## Illustration
 
@@ -407,7 +406,9 @@ gt(df, rownames_to_stub = TRUE) |>
 
 ## Firth's adjusted scores methods
 
-Instead of solving [$s(\vartheta)=0$]{.text-org}, solve [$s(\vartheta) + \mathcal B(\vartheta) I(\vartheta)=0$]{.text-tur}.
+::: {.nudge-up}
+Instead of solving [$s(\vartheta)=0$]{.text-org}, solve [$s(\vartheta) + \overbrace{A(\vartheta)}^{\mathcal B(\vartheta) I(\vartheta)}=0$]{.text-tur}.
+:::
 
 <!-- ```{r} -->
 <!-- #| out-width: 100% -->
@@ -417,13 +418,62 @@ Instead of solving [$s(\vartheta)=0$]{.text-org}, solve [$s(\vartheta) + \mathca
 <!-- plot_adjusted_score() -->
 <!-- ``` -->
 
+::: {.nudge-up}
 ![](figures/adjusted_score.gif){fig-align=center width=100%}
+:::
 
-## RBM framework
+## Implicit RBM estimator
 
-## Resampling-based methods
+Computing $\mathcal B(\vartheta)$ and $I(\vartheta)$ can be difficult. 
+Consider
 
-# Simulation Studies {.transition-slide}
+$$
+s(\vartheta) + A(\vartheta) = 0 \ \Leftrightarrow \ \underset{\vartheta}{\text{arg max}} \left \{ \ell(\vartheta) + P(\vartheta) \right\}
+$${#eq-irbm}
+
+where $P(\vartheta)$ is a penalty term constructed such that $A(\vartheta) = \nabla P(\vartheta)$. 
+@kosmidis2024empirical show that
+$$
+P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\vartheta) \Big\}
+$$ 
+
+where
+
+::: {.nudge-up-small}
+- $j(\vartheta) = \sum_{i=1}^n \nabla\nabla^\top \ell_i(\vartheta)$ is the observed information;
+- $e(\vartheta) = \sum_{i=1}^n \nabla\ell_i(\vartheta)\nabla^\top\ell_i(\vartheta)\nabla\ell_i(\vartheta)$ is the outer-product of scores.
+
+::: {.nudge-up-small}
+The solution $\tilde\vartheta$ to (-@eq-irbm) is called the [*implicit* RBM estimator (iRBM)]{}.
+:::
+:::
+
+## Explicit RBM estimator
+
+Intuitively, by thinking in terms of a Newton-style update, an *explicit* estimator is obtained via
+$$
+\vartheta^*= \hat\vartheta + j(\hat\vartheta)^{-1} A(\hat\vartheta).
+$$
+
+This moves $\hat\theta$ in the direction $A(\hat\vartheta)$ away from the bias, with step length governed by the curvature $j(\hat\vartheta)^{-1}$.
+
+::: {.columns}
+
+::: {.column width=50%}
+{{< placeholder 600 300 format=svg >}}
+:::
+
+::: {.column width=50%}
+- Operationally, eRBM is simpler and quicker to compute than iRBM---no re-optimisation needed if $\hat\theta$ is available.
+
+- However, unlike iRBM, no guarantees that bias correction stays inside the parameter space.
+:::
+
+:::
+
+<!-- ## Resampling-based methods -->
+
+# Simulation studies {.transition-slide}
 
 ## Simulation design
 

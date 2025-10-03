@@ -50,7 +50,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-71b0797d0833714ff87b62992f8b8018.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-1a62580aa8dd9233baa8bd286aa3cff3.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -360,7 +360,6 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 </div>
 </div>
 </div>
-<div class="nudge-up">
 <p>Consider the stochastic Taylor expansion of <span class="math inline">\(s(\hat\vartheta)=\nabla\ell(\vartheta)=0\)</span> around <span class="math inline">\(\bar\vartheta\)</span>. For many common estimators including MLE, the bias function is: <span class="math display">\[
 \mathcal B_{\bar\vartheta} = \frac{b_1(\bar\vartheta)}{n} +  \frac{b_2(\bar\vartheta)}{n^2} + \frac{b_3(\bar\vartheta)}{n^3} +O(n^{-4}).
 \]</span></p>
@@ -368,10 +367,9 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <p>Bias arises because the roots of the score equations are <strong>not exactly centred at <span class="math inline">\(\bar\vartheta\)</span></strong>, due to:</p>
 <div class="nudge-up-small">
 <ol type="a">
-<li>The curvature of the score <span class="math inline">\(s(\vartheta)\)</span>; and</li>
+<li>The curvature of the score <span class="math inline">\(s(\vartheta)\)</span> creating asymmetry; and</li>
 <li>The randomness of the score itself.</li>
 </ol>
-</div>
 </div>
 </div>
 </section>
@@ -1040,7 +1038,9 @@ a=1,\dots,m
 </div></aside></section>
 <section id="firths-adjusted-scores-methods" class="slide level2">
 <h2>Firth’s adjusted scores methods</h2>
-<p>Instead of solving <span class="text-org"><span class="math inline">\(s(\vartheta)=0\)</span></span>, solve <span class="text-tur"><span class="math inline">\(s(\vartheta) + \mathcal B(\vartheta) I(\vartheta)=0\)</span></span>.</p>
+<div class="nudge-up">
+<p>Instead of solving <span class="text-org"><span class="math inline">\(s(\vartheta)=0\)</span></span>, solve <span class="text-tur"><span class="math inline">\(s(\vartheta) + \overbrace{A(\vartheta)}^{\mathcal B(\vartheta) I(\vartheta)}=0\)</span></span>.</p>
+</div>
 <!-- ```{r} -->
 <!-- #| out-width: 100% -->
 <!-- #| fig-align: center -->
@@ -1048,21 +1048,54 @@ a=1,\dots,m
 <!-- #| fig-width: 8 -->
 <!-- plot_adjusted_score() -->
 <!-- ``` -->
+<div class="nudge-up">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="figures/adjusted_score.gif" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
+</div>
 </section>
-<section id="rbm-framework" class="slide level2">
-<h2>RBM framework</h2>
+<section id="implicit-rbm-estimator" class="slide level2">
+<h2>Implicit RBM estimator</h2>
+<p>Computing <span class="math inline">\(\mathcal B(\vartheta)\)</span> and <span class="math inline">\(I(\vartheta)\)</span> can be difficult. Consider</p>
+<p><span id="eq-irbm"><span class="math display">\[
+s(\vartheta) + A(\vartheta) = 0 \ \Leftrightarrow \ \underset{\vartheta}{\text{arg max}} \left \{ \ell(\vartheta) + P(\vartheta) \right\}
+\tag{2}\]</span></span></p>
+<p>where <span class="math inline">\(P(\vartheta)\)</span> is a penalty term constructed such that <span class="math inline">\(A(\vartheta) = \nabla P(\vartheta)\)</span>. <span class="citation" data-cites="kosmidis2024empirical">Kosmidis and Lunardon (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> show that <span class="math display">\[
+P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\vartheta) \Big\}
+\]</span></p>
+<p>where</p>
+<div class="nudge-up-small">
+<ul>
+<li><span class="math inline">\(j(\vartheta) = \sum_{i=1}^n \nabla\nabla^\top \ell_i(\vartheta)\)</span> is the observed information;</li>
+<li><span class="math inline">\(e(\vartheta) = \sum_{i=1}^n \nabla\ell_i(\vartheta)\nabla^\top\ell_i(\vartheta)\nabla\ell_i(\vartheta)\)</span> is the outer-product of scores.</li>
+</ul>
+<div class="nudge-up-small">
+<p>The solution <span class="math inline">\(\tilde\vartheta\)</span> to (<a href="#/eq-irbm" class="quarto-xref">2</a>) is called the <span><em>implicit</em> RBM estimator (iRBM)</span>.</p>
+</div>
+</div>
 </section>
-<section id="resampling-based-methods" class="slide level2">
-<h2>Resampling-based methods</h2>
+<section id="explicit-rbm-estimator" class="slide level2">
+<h2>Explicit RBM estimator</h2>
+<p>Intuitively, by thinking in terms of a Newton-style update, an <em>explicit</em> estimator is obtained via <span class="math display">\[
+\vartheta^*= \hat\vartheta + j(\hat\vartheta)^{-1} A(\hat\vartheta).
+\]</span></p>
+<p>This moves <span class="math inline">\(\hat\theta\)</span> in the direction <span class="math inline">\(A(\hat\vartheta)\)</span> away from the bias, with step length governed by the curvature <span class="math inline">\(j(\hat\vartheta)^{-1}\)</span>.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="data:image/svg+xml;base64,PHN2ZyB3aWR0aCA9ICI2MDAiIGhlaWdodCA9ICIzMDAiIHhtbG5zID0gImh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94ID0gIjAgMCA2MDAgMzAwIj48cmVjdCB3aWR0aCA9ICI2MDAiIGhlaWdodCA9ICIzMDAiIGZpbGwgPSAiI2RkZCIgLz48dGV4dCB4ID0gIjUwJSIgeSA9ICI1MCUiIGZvbnQtZmFtaWx5ID0gInNhbnMtc2VyaWYiIGZvbnQtc2l6ZSA9ICIzMCIgZmlsbCA9ICIjMDAwIiB0ZXh0LWFuY2hvciA9ICJtaWRkbGUiPjYwMCB4IDMwMDwvdGV4dD48L3N2Zz4="></p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Operationally, eRBM is simpler and quicker to compute than iRBM—no re-optimisation needed if <span class="math inline">\(\hat\theta\)</span> is available.</p></li>
+<li><p>However, unlike iRBM, no guarantees that bias correction stays inside the parameter space.</p></li>
+</ul>
+</div></div>
+<!-- ## Resampling-based methods -->
 </section></section>
 <section>
 <section id="simulation-studies" class="title-slide slide level1 transition-slide center">
-<h1>Simulation Studies</h1>
+<h1>Simulation studies</h1>
 
 </section>
 <section id="simulation-design" class="slide level2">
@@ -1132,6 +1165,9 @@ Kosmidis, Ioannis. 2014. <span>“Bias in Parametric Estimation: Reduction and U
 </div>
 <div id="ref-kosmidis2009bias" class="csl-entry" role="listitem">
 Kosmidis, Ioannis, and David Firth. 2009. <span>“Bias Reduction in Exponential Family Nonlinear Models.”</span> <em>Biometrika</em> 96 (4): 793–804. <a href="https://academic.oup.com/biomet/article-abstract/96/4/793/220575">https://academic.oup.com/biomet/article-abstract/96/4/793/220575</a>.
+</div>
+<div id="ref-kosmidis2024empirical" class="csl-entry" role="listitem">
+Kosmidis, Ioannis, and Nicola Lunardon. 2024. <span>“Empirical Bias-Reducing Adjustments to Estimating Functions.”</span> <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em> 86 (1): 62–89. <a href="https://doi.org/10.1093/jrsssb/qkad083">https://doi.org/10.1093/jrsssb/qkad083</a>.
 </div>
 <div id="ref-mackinnon1998approximate" class="csl-entry" role="listitem">
 MacKinnon, James G., and Anthony A. Smith Jr. 1998. <span>“Approximate Bias Correction in Econometrics.”</span> <em>Journal of Econometrics</em> 85 (2): 205–30.
