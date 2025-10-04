@@ -116,7 +116,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-3ad498d5e576b791d7df71d0b5fc46ea.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-b6bbdec729600d39198a32b243ec4839.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -370,9 +370,565 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <h1>Structural equation models</h1>
 
 </section>
-<section id="measurement-model" class="slide level2">
-<h2>Measurement model</h2>
-</section>
+<section id="motivating-example" class="slide level2">
+<h2>Motivating example</h2>
+<h3 id="glycemic-control-and-kidney-health">Glycemic control and kidney health</h3>
+<blockquote>
+<p>Does poorer glycemic control lead to greater severity of kidney disease?</p>
+</blockquote>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p>For <span class="math inline">\(i=1,\dots,n\)</span> patients, observe <span class="math inline">\(p=6\)</span> variables:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="doxayjhmea" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#doxayjhmea table {
+  font-family: Raleway, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#doxayjhmea thead, #doxayjhmea tbody, #doxayjhmea tfoot, #doxayjhmea tr, #doxayjhmea td, #doxayjhmea th {
+  border-style: none;
+}
+
+#doxayjhmea p {
+  margin: 0;
+  padding: 0;
+}
+
+#doxayjhmea .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 25px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#doxayjhmea .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#doxayjhmea .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#doxayjhmea .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#doxayjhmea .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#doxayjhmea .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#doxayjhmea .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#doxayjhmea .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#doxayjhmea .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#doxayjhmea .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#doxayjhmea .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#doxayjhmea .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#doxayjhmea .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#doxayjhmea .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#doxayjhmea .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#doxayjhmea .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#doxayjhmea .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#doxayjhmea .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#doxayjhmea .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#doxayjhmea .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#doxayjhmea .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#doxayjhmea .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#doxayjhmea .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#doxayjhmea .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#doxayjhmea .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#doxayjhmea .gt_left {
+  text-align: left;
+}
+
+#doxayjhmea .gt_center {
+  text-align: center;
+}
+
+#doxayjhmea .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#doxayjhmea .gt_font_normal {
+  font-weight: normal;
+}
+
+#doxayjhmea .gt_font_bold {
+  font-weight: bold;
+}
+
+#doxayjhmea .gt_font_italic {
+  font-style: italic;
+}
+
+#doxayjhmea .gt_super {
+  font-size: 65%;
+}
+
+#doxayjhmea .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#doxayjhmea .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#doxayjhmea .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#doxayjhmea .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#doxayjhmea .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#doxayjhmea .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#doxayjhmea .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#doxayjhmea .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#doxayjhmea div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Variable">Var.</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Indicator">Indicator</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Description">Description</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Unit">Unit</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Variable" class="gt_row gt_left"><span data-qmd-base64="JHhfMSQ="><span class="gt_from_md">\(x_1\)</span></span></td>
+<td headers="Indicator" class="gt_row gt_left">HbA1c</td>
+<td headers="Description" class="gt_row gt_left">3-month avg. blood glucose</td>
+<td headers="Unit" class="gt_row gt_left">%</td></tr>
+    <tr><td headers="Variable" class="gt_row gt_left"><span data-qmd-base64="JHhfMiQ="><span class="gt_from_md">\(x_2\)</span></span></td>
+<td headers="Indicator" class="gt_row gt_left">FPG</td>
+<td headers="Description" class="gt_row gt_left">Fasting plasma glucose</td>
+<td headers="Unit" class="gt_row gt_left">mmol/L</td></tr>
+    <tr><td headers="Variable" class="gt_row gt_left"><span data-qmd-base64="JHhfMyQ="><span class="gt_from_md">\(x_3\)</span></span></td>
+<td headers="Indicator" class="gt_row gt_left">Insulin</td>
+<td headers="Description" class="gt_row gt_left">Fasting insulin level</td>
+<td headers="Unit" class="gt_row gt_left">µU/mL</td></tr>
+    <tr><td headers="Variable" class="gt_row gt_left"><span data-qmd-base64="JHlfMSQ="><span class="gt_from_md">\(y_1\)</span></span></td>
+<td headers="Indicator" class="gt_row gt_left">PCr</td>
+<td headers="Description" class="gt_row gt_left">Plasma creatinine</td>
+<td headers="Unit" class="gt_row gt_left">µmol/L</td></tr>
+    <tr><td headers="Variable" class="gt_row gt_left"><span data-qmd-base64="JHlfMiQ="><span class="gt_from_md">\(y_2\)</span></span></td>
+<td headers="Indicator" class="gt_row gt_left">ACR</td>
+<td headers="Description" class="gt_row gt_left">Albumin–creatinine ratio</td>
+<td headers="Unit" class="gt_row gt_left">mg/g</td></tr>
+    <tr><td headers="Variable" class="gt_row gt_left"><span data-qmd-base64="JHlfMyQ="><span class="gt_from_md">\(y_3\)</span></span></td>
+<td headers="Indicator" class="gt_row gt_left">BUN</td>
+<td headers="Description" class="gt_row gt_left">Blood urea nitrogen</td>
+<td headers="Unit" class="gt_row gt_left">mmol/L</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:50%;">
+<div class="nudge-down">
+<p>“<em>casewise</em>” thinking leads to <span class="math display">\[
+\small
+\begin{align*}
+y_{1} &amp;= \beta_0^{(1)} + \beta_1^{(1)} x_1 + \beta_2^{(1)} x_2 + \beta_3^{(1)} x_3 + \epsilon^{(j)} \\
+y_{2} &amp;= \beta_0^{(2)} + \beta_1^{(2)} x_1 + \beta_2^{(2)} x_2 + \beta_3^{(2)} x_3 + \epsilon^{(j)} \\
+y_{3} &amp;= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3)} x_3 + \epsilon^{(j)} \\
+\end{align*}
+\]</span></p>
+<ul>
+<li><p>Does not give a clear and direct answer.</p></li>
+<li><p>Moreover, <span class="math inline">\(x\)</span>’s are assumed to be measured without error!</p></li>
+</ul>
+</div>
+</div></div>
+
+<aside><div>
+<p>Example adapted from <span class="citation" data-cites="song2012basic">Song and Lee (<a href="#/references" role="doc-biblioref" onclick="">2012</a>)</span>.</p>
+</div></aside></section>
+<section id="covariance-based-approach" class="slide level2">
+<h2>Covariance-based approach</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="nudge-up-small">
+<p>Sample correlation matrix looks like this<sup>1</sup>:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:55%;">
+<div class="nudge-down-medium">
+<ul>
+<li><p>The data suggests clustering of variables</p>
+<ul>
+<li><span class="math inline">\(x\)</span>’s measure <em>glycemic control</em></li>
+<li><span class="math inline">\(y\)</span>’s measure <em>kidney health</em></li>
+</ul></li>
+<li><p>There is an element of dimension-reduction, much needed for analysing multivariate data.</p></li>
+<li><p>Easier to hypothesize relationships, e.g. <span class="math display">\[
+\texttt{KdnHlt} = \alpha + \beta \,  \texttt{GlyCon} + \texttt{error}
+\]</span></p></li>
+<li><p>SEM is about modelling the <u>covariance structure</u> of the data, <span class="math display">\[
+\boldsymbol\Sigma = \boldsymbol\Sigma(\vartheta).
+\]</span></p></li>
+</ul>
+</div>
+</div></div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Simulated data, from a two-factor SEM.</p></li></ol></aside></section>
 <section id="structural-model" class="slide level2">
 <h2>Structural model</h2>
 </section>
@@ -451,7 +1007,7 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -462,7 +1018,7 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -473,7 +1029,7 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -494,7 +1050,7 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -505,7 +1061,7 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -516,7 +1072,7 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1178,7 +1734,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1191,7 +1747,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1204,7 +1760,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1217,7 +1773,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1376,8 +1932,12 @@ Satorra, Albert, and Pete M. Bentler. 1994. <span>“Corrections to Test Statist
 <div id="ref-savalei2014understanding" class="csl-entry" role="listitem">
 Savalei, Victoria. 2014. <span>“Understanding <span>Robust Corrections</span> in <span>Structural Equation Modeling</span>.”</span> <em>Structural Equation Modeling: A Multidisciplinary Journal</em> 21 (1): 149–60. <a href="https://doi.org/10.1080/10705511.2013.824793">https://doi.org/10.1080/10705511.2013.824793</a>.
 </div>
+<div id="ref-song2012basic" class="csl-entry" role="listitem">
+Song, Xin‐Yuan, and Sik‐Yum Lee. 2012. <em>Basic and <span>Advanced Bayesian Structural Equation Modeling</span>: <span>With Applications</span> in the <span>Medical</span> and <span>Behavioral Sciences</span></em>. 1st ed. Wiley <span>Series</span> in <span>Probability</span> and <span>Statistics</span>. Wiley. <a href="https://doi.org/10.1002/9781118358887">https://doi.org/10.1002/9781118358887</a>.
+</div>
 </div>
 </section></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="_extensions/haziqj/kaust/KAUST-logo-seed.svg" class="slide-logo"></p>

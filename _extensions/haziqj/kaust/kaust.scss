@@ -608,10 +608,14 @@ div.figure {
   transform: translateY(25px);
 }
 
-.nudge-down {
+.nudge-down-small {
   transform: translateY(12.5px);
 }
 
 .nudge-down-medium {
   transform: translateY(37.5px);
+}
+
+.nudge-down-large {
+  transform: translateY(50px);
 }

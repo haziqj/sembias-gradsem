@@ -26,7 +26,7 @@ bibliography: refs.bib
 execute:
   echo: false
   freeze: auto
-  cache: false
+  cache: true
 ---
 
 ## 
@@ -166,7 +166,157 @@ Photo credits: Unsplash
 
 # Structural equation models {.transition-slide}
 
-## Measurement model
+## Motivating example
+
+### Glycemic control and kidney health
+
+> Does poorer glycemic control lead to greater severity of kidney disease?
+
+
+::: {.columns}
+
+::: {.column width=48%}
+For $i=1,\dots,n$ patients, observe $p=6$ variables:
+
+```{r}
+#| html-table-processing: none
+library(gt)
+
+tbl <- data.frame(
+  Variable = c("$x_1$", "$x_2$", "$x_3$", "$y_1$", "$y_2$", "$y_3$"),
+  Indicator = c("HbA1c", "FPG", "Insulin", "PCr", "ACR", "BUN"),
+  Description = c(
+    "3-month avg. blood glucose",
+    "Fasting plasma glucose",
+    "Fasting insulin level",
+    "Plasma creatinine",
+    "Albumin–creatinine ratio",
+    "Blood urea nitrogen"
+  ),
+  Unit = c("%", "mmol/L", "µU/mL", "µmol/L", "mg/g", "mmol/L"),
+  stringsAsFactors = FALSE
+)
+
+tbl |>
+  gt() |>
+  # tab_header(title = md("**Observed Variables**")) |>
+  cols_label(
+    Variable   = "Var.",
+    Indicator  = "Indicator",
+    Description = "Description",
+    Unit       = "Unit"
+  ) |>
+  fmt_markdown(columns = "Variable") |>
+  tab_options(
+    table.font.size = px(25),
+    table.width = pct(100)
+  ) |>  
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels()
+  ) |>
+  opt_table_font(font = list(google_font("Raleway"), default_fonts()))
+```
+
+:::
+
+::: {.column width=2%}
+:::
+
+::: {.column width=50%}
+::: {.nudge-down}
+"*casewise*" thinking leads to
+$$
+\small
+\begin{align*}
+y_{1} &= \beta_0^{(1)} + \beta_1^{(1)} x_1 + \beta_2^{(1)} x_2 + \beta_3^{(1)} x_3 + \epsilon^{(j)} \\
+y_{2} &= \beta_0^{(2)} + \beta_1^{(2)} x_1 + \beta_2^{(2)} x_2 + \beta_3^{(2)} x_3 + \epsilon^{(j)} \\
+y_{3} &= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3)} x_3 + \epsilon^{(j)} \\
+\end{align*}
+$$
+
+- Does not give a clear and direct answer.
+
+- Moreover, $x$'s are assumed to be measured without error!
+
+:::
+:::
+
+:::
+
+
+
+
+::: aside
+Example adapted from @song2012basic.
+:::
+
+## Covariance-based approach
+
+::: {.columns}
+
+::: {.column width=45%}
+::: {.nudge-up-small}
+Sample correlation matrix looks like this^[Simulated data, from a two-factor SEM.]:
+
+```{r}
+#| fig-align: center
+#| out-width: 100%
+#| fig-height: 4.5
+#| fig-width: 4.5
+library(brlavaan)
+dat <- gen_data_twofac(n = 1000)
+z <- cor(dat)
+colnames(z) <- rownames(z) <- c("x[1]","x[2]","x[3]","y[1]","y[2]","y[3]")
+
+library(ggcorrplot)
+ggcorrplot(
+  z[, 6:1],
+  lab = TRUE, lab_col = "black", lab_size = 4,
+  colors = c("#00A6AA", "white", "#F18F00"),
+  type = "full",    
+  show.diag = TRUE
+) +
+  scale_x_discrete(position = "top", labels = scales::label_parse()) +
+  scale_y_discrete(labels = scales::label_parse()) +
+  theme(
+    axis.text.x = element_text(angle = 0, hjust = 0.5),
+    axis.ticks = element_blank(),
+    legend.position = "none"
+  )
+```
+:::
+:::
+
+::: {.column width=55%}
+::: {.nudge-down-medium}
+- The data suggests clustering of variables
+   - $x$'s measure *glycemic control*
+   - $y$'s measure *kidney health*
+
+- There is an element of dimension-reduction, much needed for analysing multivariate data.
+
+- Easier to hypothesize relationships, e.g.
+  $$
+  \texttt{KdnHlt} = \alpha + \beta \,  \texttt{GlyCon} + \texttt{error}
+  $$
+
+
+- SEM is about modelling the <u>covariance structure</u> of the data, 
+$$
+\boldsymbol\Sigma = \boldsymbol\Sigma(\vartheta).
+$$
+
+:::
+:::
+
+:::
+
+
+
+
+
+
 
 ## Structural model
 

@@ -6,3 +6,5 @@
 .quarto
 
 /.quarto/
+/index_files
+/index_cache
