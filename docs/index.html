@@ -1071,11 +1071,66 @@ y_6
 <p>Calculation of SEs are based off estimates of these matrices. The “sandwich” matrix gives robust SEs <span class="citation" data-cites="satorra1994corrections savalei2014understanding">(<a href="#/references" role="doc-biblioref" onclick="">Satorra and Bentler 1994</a>; <a href="#/references" role="doc-biblioref" onclick="">Savalei 2014</a>)</span>.</p>
 </div>
 </section>
-<section id="example-2-latent-growth-curve-model" class="slide level2">
-<h2>Example 2: Latent growth curve model</h2>
+<section id="latent-growth-curve-model-gcm" class="slide level2">
+<h2>Latent growth curve model (GCM)</h2>
+<ul>
+<li><p><strong>Longitudinal data:</strong> repeated measurements on individuals <span class="math inline">\(i\)</span> over time, e.g.&nbsp;<span class="math inline">\(\mathbf y_i = (y_{i1},y_{i2},\dots,y_{i10})\)</span>, <span class="math inline">\(i=1,\dots,n\)</span> <span class="citation" data-cites="rabe2008multilevel">(<a href="#/references" role="doc-biblioref" onclick="">Rabe-Hesketh and Skrondal 2008</a>)</span>.</p></li>
+<li><p>Usually, linear mixed effects models are used, where <span class="math display">\[
+\begin{gathered}
+y_{it} = \overbrace{(\alpha_1 + \eta_{1i})}^{\text{random int.}} +  \overbrace{(\alpha_2 + \eta_{2i})}^{\text{random slope}} \cdot (t-1) + \epsilon_{it} \quad\quad t=1,\dots,10 \\[0.5em]
+\begin{pmatrix}
+\eta_{1i} \\
+\eta_{2i}
+\end{pmatrix}
+\sim \text{N}_2\left(\mathbf 0,
+\begin{pmatrix}
+\psi_{11} &amp; \psi_{12} \\
+\cdot &amp; \psi_{22}
+\end{pmatrix}\right) \\
+\end{gathered}
+\]</span></p>
+<div class="nudge-down-small">
+<ul>
+<li><span class="math inline">\(\alpha_1\)</span> and <span class="math inline">\(\alpha_2\)</span> are fixed effects (intercept and slope);</li>
+<li><span class="math inline">\(\eta_1\)</span> and <span class="math inline">\(\eta_2\)</span> are correlated random effects (individual deviations);</li>
+<li><span class="math inline">\(\epsilon_t\sim\text{N}(0,\theta)\)</span> are measurement errors.</li>
+</ul>
+</div></li>
+</ul>
+<div class="nudge-down-small">
+<ul>
+<li>Restricted ML is a popular method to estimate such models, with good parameter recovery for variance components <span class="citation" data-cites="corbeil1976restricted">(<a href="#/references" role="doc-biblioref" onclick="">Corbeil and Searle 1976</a>)</span>.</li>
+</ul>
+</div>
 </section>
-<section id="reml" class="slide level2">
-<h2>REML</h2>
+<section id="latent-gcm-as-sem" class="slide level2">
+<h2>Latent GCM as SEM</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" style="width:85.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="absolute" style="bottom: 2%; right: 1%; ">
+<p><span class="math display">\[
+\begin{gathered}
+\boldsymbol\Lambda = \begin{bmatrix}
+1 &amp; 0 \\
+1 &amp; 1 \\
+\vdots &amp; \vdots \\
+1 &amp; 9 \\
+\end{bmatrix}
+\\
+\\
+\mathbf y = \mathbf 0 + \boldsymbol\Lambda \boldsymbol\eta + \boldsymbol\epsilon \\
+\boldsymbol\epsilon \sim \operatorname{N}_{10}(\mathbf 0, \theta \mathbf I) \\
+\boldsymbol\eta \sim \operatorname{N}_2 (\boldsymbol\alpha, \boldsymbol\Psi)
+\end{gathered}
+\]</span></p>
+</div>
 </section></section>
 <section>
 <section id="bias-reduction-methods" class="title-slide slide level1 transition-slide center">
@@ -1121,7 +1176,7 @@ y_6
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1132,7 +1187,7 @@ y_6
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1143,7 +1198,7 @@ y_6
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1164,7 +1219,7 @@ y_6
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1175,7 +1230,7 @@ y_6
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1186,7 +1241,7 @@ y_6
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1848,7 +1903,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1861,7 +1916,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1874,7 +1929,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1887,7 +1942,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1986,6 +2041,9 @@ Variances:
 <h2>References</h2>
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-corbeil1976restricted" class="csl-entry" role="listitem">
+Corbeil, Robert R., and Shayle R. Searle. 1976. <span>“Restricted Maximum Likelihood (<span>REML</span>) Estimation of Variance Components in the Mixed Model.”</span> <em>Technometrics</em> 18 (1): 31–38. <a href="https://www.tandfonline.com/doi/abs/10.1080/00401706.1976.10489397">https://www.tandfonline.com/doi/abs/10.1080/00401706.1976.10489397</a>.
+</div>
 <div id="ref-cordeiro1991bias" class="csl-entry" role="listitem">
 Cordeiro, Gauss M., and Peter McCullagh. 1991. <span>“Bias Correction in Generalized Linear Models.”</span> <em>Journal of the Royal Statistical Society Series B: Statistical Methodology</em> 53 (3): 629–43.
 </div>
@@ -2039,6 +2097,9 @@ Quenouille, Maurice H. 1956. <span>“Notes on Bias in Estimation.”</span> <em
 </div>
 <div id="ref-quezada2016explanatory" class="csl-entry" role="listitem">
 Quezada, Lucía, Mónica T. González, and Gabriel A. Mecott. 2016. <span>“Explanatory <span>Model</span> of <span>Resilience</span> in <span>Pediatric Burn Survivors</span>.”</span> <em>Journal of Burn Care &amp; Research</em> 37 (4): 216–25. <a href="https://doi.org/10.1097/bcr.0000000000000261">https://doi.org/10.1097/bcr.0000000000000261</a>.
+</div>
+<div id="ref-rabe2008multilevel" class="csl-entry" role="listitem">
+Rabe-Hesketh, Sophia, and Anders Skrondal. 2008. <em>Multilevel and Longitudinal Modeling Using <span>Stata</span></em>. STATA press. <a href="https://books.google.com/books?hl=en&amp;lr=&amp;id=woi7AheOWSkC&amp;oi=fnd&amp;pg=PR21&amp;dq=rabe+hesketh+skrondal&amp;ots=efJx8d2SOE&amp;sig=iEXwmQmmn8UMZVmuYGYXtvDlESg">https://books.google.com/books?hl=en&amp;lr=&amp;id=woi7AheOWSkC&amp;oi=fnd&amp;pg=PR21&amp;dq=rabe+hesketh+skrondal&amp;ots=efJx8d2SOE&amp;sig=iEXwmQmmn8UMZVmuYGYXtvDlESg</a>.
 </div>
 <div id="ref-satorra1994corrections" class="csl-entry" role="listitem">
 Satorra, Albert, and Pete M. Bentler. 1994. <span>“Corrections to Test Statistics and Standard Errors in Covariance Structure Analysis.”</span> In <em>Latent Variables Analysis: <span>Applications</span> for Developmental Research</em>, 399–419. Thousand Oaks, CA, US: Sage Publications, Inc.
