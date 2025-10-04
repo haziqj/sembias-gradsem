@@ -151,18 +151,19 @@ Photo credits: Unsplash
 
 ## Outline
 
-1. Brief overview of SEMs
-    - Model equations
+1. **Brief overview of SEMs**
+    - Motivating example
     - ML estimation and inference
     - Examples of SEMs
       - Two-factor SEM
       - Latent growth models
-2. Bias reducing methods
-    - A review
-    - Resampling-based methods
-    - Alternative approaches
+2. **Bias reducing methods**
+    - What is bias?
+    - A review of bias reduction methods
     - Reduced-Bias $M$-estimation (RBM)
-3. Simulation studies and results
+      - Implicit correction
+      - Explicit correction
+3. **Simulation studies and results**
 
 # Structural equation models {.transition-slide}
 
@@ -237,7 +238,7 @@ $$
 
 - Does not give a clear and direct answer.
 
-- Moreover, $x$'s are assumed to be measured without error!
+- Moreover, $x$'s are assumed to be measured without error.
 
 :::
 :::
@@ -257,7 +258,7 @@ Example adapted from @song2012basic.
 
 ::: {.column width=45%}
 ::: {.nudge-up-small}
-Sample correlation matrix looks like this^[Simulated data, from a two-factor SEM.]:
+Sample correlation matrix looks like this^[Simulated data, from a two-factor SEM ($n=1000$).]:
 
 ```{r}
 #| fig-align: center
@@ -294,7 +295,7 @@ ggcorrplot(
    - $x$'s measure *glycemic control*
    - $y$'s measure *kidney health*
 
-- There is an element of dimension-reduction, much needed for analysing multivariate data.
+- There is an element of dimension-reduction, much needed for analysing (correlated) multivariate data.
 
 - Easier to hypothesize relationships, e.g.
   $$
@@ -312,17 +313,216 @@ $$
 
 :::
 
+## SEM equations
+
+::: {.columns}
+
+::: {.column width=50%}
+::: {.nudge-up}
+$$
+\small
+\begin{gathered}
+\begin{pmatrix}
+y_1 \\
+y_2 \\
+y_3 \\
+y_4 \\
+y_5 \\
+y_6
+\end{pmatrix}
+= 
+\begin{pmatrix}
+\lambda_{11} & 0 \\
+\lambda_{21} & 0 \\
+\lambda_{31} & 0 \\
+0 & \lambda_{42} \\
+0 & \lambda_{52} \\
+0 & \lambda_{62} \\
+\end{pmatrix}
+\begin{pmatrix}
+\eta_1 \\
+\eta_2
+\end{pmatrix}
++ 
+\begin{pmatrix}
+\epsilon_1 \\
+\epsilon_2 \\
+\epsilon_3 \\
+\epsilon_4 \\
+\epsilon_5 \\
+\epsilon_6
+\end{pmatrix} \\[1em]
+\begin{pmatrix}
+\eta_1 \\
+\eta_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 & 0 \\
+\beta & 0 \\
+\end{pmatrix}
+\begin{pmatrix}
+\eta_1 \\
+\eta_2
+\end{pmatrix}
++
+\begin{pmatrix}
+\zeta_1 \\
+\zeta_2
+\end{pmatrix}
+\end{gathered}
+$$
+
+Or, more compactly as
+
+::: {.nudge-up}
+$$
+\begin{gathered}
+\mathbf y = {\color{Gray}\boldsymbol\nu +\,}  \boldsymbol\Lambda \boldsymbol\eta + \boldsymbol\epsilon \\
+\boldsymbol\eta = {\color{Gray}\boldsymbol\alpha +\,} \mathbf B \boldsymbol\eta + \boldsymbol\zeta
+\end{gathered}
+$$
+
+with assumptions $\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, \boldsymbol\Theta)$, $\boldsymbol\zeta\sim\operatorname{N}_q(\mathbf 0, \boldsymbol\Psi)$, and $\operatorname{Cov}(\boldsymbol\epsilon, \boldsymbol\zeta)=\mathbf 0$.
+
+:::
 
 
 
+:::
+:::
 
+::: {.column width=50%}
+```{r, engine = "tikz"}
+#| fig-align: center
+#| out-width: 100%
+\begin{tikzpicture}[%
+  scale=0.9,
+  >=stealth,
+  auto,
+  node distance=1.6cm,
+  every node/.style={font=\small},
+  latent/.style={circle, draw, minimum size=9mm, inner sep=0mm},
+  obs/.style={rectangle, draw, minimum size=7mm, inner sep=0mm},
+  error/.style={circle, draw, minimum size=6mm, inner sep=0mm}
+]
 
+% --------------------------------------------------------
+% 1) LATENT VARIABLES
+% --------------------------------------------------------
+\node[latent] (eta1) at (-1.5, -2) {$\eta_{1}$};
+\node[latent] (eta2) at ( 3.5, -2) {$\eta_{2}$};
 
-## Structural model
+% --------------------------------------------------------
+% 2) OBSERVED VARIABLES + ERROR TERMS
+%    Place y1..y3 (for eta1) on the left, y4..y6 (for eta2) on the right.
+% --------------------------------------------------------
+\node[obs] (y1) at (-2.8, 0) {$y_{1}$};
+\node[obs] (y2) at (-1.5, 0) {$y_{2}$};
+\node[obs] (y3) at ( -0.2, 0) {$y_{3}$};
 
-## Example 1: Political democracy example
+\node[obs] (y4) at ( 2.2, 0) {$y_{4}$};
+\node[obs] (y5) at ( 3.5, 0) {$y_{5}$};
+\node[obs] (y6) at ( 4.8, 0) {$y_{6}$};
+
+% Error terms above each observed variable
+\node[error] (e1) at (-2.8, 1) {$\epsilon_{1}$};
+\node[error] (e2) at (-1.5, 1) {$\epsilon_{2}$};
+\node[error] (e3) at ( -0.2, 1) {$\epsilon_{3}$};
+\node[error] (e4) at ( 2.2, 1) {$\epsilon_{4}$};
+\node[error] (e5) at ( 3.5, 1) {$\epsilon_{5}$};
+\node[error] (e6) at ( 4.8, 1) {$\epsilon_{6}$};
+
+% --------------------------------------------------------
+% 3) PATHS FROM ERROR TERMS TO OBSERVED VARIABLES
+% --------------------------------------------------------
+\draw[->] (e1) -- (y1);
+\draw[->] (e2) -- (y2);
+\draw[->] (e3) -- (y3);
+\draw[->] (e4) -- (y4);
+\draw[->] (e5) -- (y5);
+\draw[->] (e6) -- (y6);
+
+% --------------------------------------------------------
+% 4) FACTOR LOADINGS
+%    \eta_{i1} -> y1, y2, y3
+%    \eta_{i2} -> y4, y5, y6
+% --------------------------------------------------------
+\draw[->] (eta1) -- node[pos=0.5, right] {$1$} (y1);
+\draw[->] (eta1) -- node[pos=0.5, right] {$\lambda_{21}$} (y2);
+\draw[->] (eta1) -- node[pos=0.5, right] {$\lambda_{31}$} (y3);
+
+\draw[->] (eta2) -- node[pos=0.5, right] {$1$} (y4);
+\draw[->] (eta2) -- node[pos=0.5, right] {$\lambda_{52}$} (y5);
+\draw[->] (eta2) -- node[pos=0.5, right] {$\lambda_{62}$} (y6);
+
+% --------------------------------------------------------
+% 5) REGRESSION BETWEEN LATENT VARIABLES
+%    \eta_1 -> \eta_2, labeled beta
+% --------------------------------------------------------
+\draw[->] (eta1) -- node[midway, above] {$\beta$} (eta2);
+
+% --------------------------------------------------------
+% 6) VARIANCES OF LATENT VARIABLES
+%    Double-headed arrows for psi_{11} and psi_{22}
+% --------------------------------------------------------
+\draw[<->] (eta1) to[out=200, in=230, looseness=4] 
+  node[left] {$\psi_{11}$} (eta1);
+
+\draw[<->] (eta2) to[out=-50, in=-20, looseness=4] 
+  node[right] {$\psi_{22}$} (eta2);
+
+\foreach \i in {1,...,6}{
+  \draw[<->] (e\i)
+    to[out=110, in=140, looseness=5]
+    node[above] {$\theta_{\i\i}$}
+    (e\i);
+}
+
+\end{tikzpicture}
+```
+
+- SEM parameters include the free entries of $\boldsymbol\nu$, $\boldsymbol\Lambda$, $\boldsymbol\Theta$, $\boldsymbol\alpha$, $\mathbf B$, and $\boldsymbol\Psi$. 
+
+- Dump all in $\vartheta \in\mathbb R^m$, where $m < p(p+1)/2 {\color{Gray} \,+\, p}$.
+
+- Sometimes, not interested in mean structure, so $\boldsymbol\nu$ and $\boldsymbol\alpha$ are dropped.
+
+:::
+
+:::
 
 ## ML estimation
+
+- It can be shown that the normal SEM reduces to $\mathbf y\sim \text{N}_p\big(\boldsymbol\mu(\vartheta), \boldsymbol\Sigma(\vartheta)\big)$, where
+$$
+\begin{align}
+\boldsymbol\mu(\vartheta) &= \boldsymbol\nu + \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\alpha  \\
+\boldsymbol\Sigma(\vartheta) &= \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\Psi (\mathbf I - \mathbf B)^{-\top} \boldsymbol\Lambda^\top + \boldsymbol\Theta
+\end{align}
+$$
+
+::: {.nudge-down-small}
+- Suppose we observe $\mathcal Y= \{\mathbf y_1,\dots,\mathbf y_n\}$. ML estimation maximises (up to a constant) the log-likelihood
+  $$
+  \ell(\vartheta)
+  = -\frac{n}{2}\Bigl[
+  \log \bigl|\boldsymbol\Sigma(\vartheta)\bigr|
+  + \operatorname{tr} \bigl(\boldsymbol\Sigma(\vartheta)^{-1} \mathbf S\bigr)
+  + \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)^{\top}
+    \boldsymbol\Sigma(\vartheta)^{-1}
+    \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)
+  \Bigr]
+  $$
+  where 
+    - $\mathbf S = \frac{1}{n}\sum_{i=1}^n (\mathbf y_i - \bar{\mathbf y})(\mathbf y_i - \bar{\mathbf y})^\top$ is the (biased) sample covariance matrix; and
+    - $\bar{\mathbf y} = \frac{1}{n}\sum_{i=1}^n \mathbf y_i$ is the sample mean.
+
+::: {.nudge-down-small}
+- Clearly, the MLE aims to minimise the discrepancy between $\mathbf S$ and $\boldsymbol\Sigma(\vartheta)$.
+:::
+
+:::
 
 ## Properties of MLE
 

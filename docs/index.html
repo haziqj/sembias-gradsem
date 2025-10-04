@@ -345,9 +345,9 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <section id="outline" class="slide level2">
 <h2>Outline</h2>
 <ol type="1">
-<li>Brief overview of SEMs
+<li><strong>Brief overview of SEMs</strong>
 <ul>
-<li>Model equations</li>
+<li>Motivating example</li>
 <li>ML estimation and inference</li>
 <li>Examples of SEMs
 <ul>
@@ -355,14 +355,17 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <li>Latent growth models</li>
 </ul></li>
 </ul></li>
-<li>Bias reducing methods
+<li><strong>Bias reducing methods</strong>
 <ul>
-<li>A review</li>
-<li>Resampling-based methods</li>
-<li>Alternative approaches</li>
-<li>Reduced-Bias <span class="math inline">\(M\)</span>-estimation (RBM)</li>
+<li>What is bias?</li>
+<li>A review of bias reduction methods</li>
+<li>Reduced-Bias <span class="math inline">\(M\)</span>-estimation (RBM)
+<ul>
+<li>Implicit correction</li>
+<li>Explicit correction</li>
 </ul></li>
-<li>Simulation studies and results</li>
+</ul></li>
+<li><strong>Simulation studies and results</strong></li>
 </ol>
 </section>
 <section>
@@ -886,7 +889,7 @@ y_{3} &amp;= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3
 \]</span></p>
 <ul>
 <li><p>Does not give a clear and direct answer.</p></li>
-<li><p>Moreover, <span class="math inline">\(x\)</span>’s are assumed to be measured without error!</p></li>
+<li><p>Moreover, <span class="math inline">\(x\)</span>’s are assumed to be measured without error.</p></li>
 </ul>
 </div>
 </div></div>
@@ -918,7 +921,7 @@ y_{3} &amp;= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3
 <li><span class="math inline">\(x\)</span>’s measure <em>glycemic control</em></li>
 <li><span class="math inline">\(y\)</span>’s measure <em>kidney health</em></li>
 </ul></li>
-<li><p>There is an element of dimension-reduction, much needed for analysing multivariate data.</p></li>
+<li><p>There is an element of dimension-reduction, much needed for analysing (correlated) multivariate data.</p></li>
 <li><p>Easier to hypothesize relationships, e.g. <span class="math display">\[
 \texttt{KdnHlt} = \alpha + \beta \,  \texttt{GlyCon} + \texttt{error}
 \]</span></p></li>
@@ -928,15 +931,126 @@ y_{3} &amp;= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3
 </ul>
 </div>
 </div></div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Simulated data, from a two-factor SEM.</p></li></ol></aside></section>
-<section id="structural-model" class="slide level2">
-<h2>Structural model</h2>
-</section>
-<section id="example-1-political-democracy-example" class="slide level2">
-<h2>Example 1: Political democracy example</h2>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Simulated data, from a two-factor SEM (<span class="math inline">\(n=1000\)</span>).</p></li></ol></aside></section>
+<section id="sem-equations" class="slide level2">
+<h2>SEM equations</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="nudge-up">
+<p><span class="math display">\[
+\small
+\begin{gathered}
+\begin{pmatrix}
+y_1 \\
+y_2 \\
+y_3 \\
+y_4 \\
+y_5 \\
+y_6
+\end{pmatrix}
+=
+\begin{pmatrix}
+\lambda_{11} &amp; 0 \\
+\lambda_{21} &amp; 0 \\
+\lambda_{31} &amp; 0 \\
+0 &amp; \lambda_{42} \\
+0 &amp; \lambda_{52} \\
+0 &amp; \lambda_{62} \\
+\end{pmatrix}
+\begin{pmatrix}
+\eta_1 \\
+\eta_2
+\end{pmatrix}
++
+\begin{pmatrix}
+\epsilon_1 \\
+\epsilon_2 \\
+\epsilon_3 \\
+\epsilon_4 \\
+\epsilon_5 \\
+\epsilon_6
+\end{pmatrix} \\[1em]
+\begin{pmatrix}
+\eta_1 \\
+\eta_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 &amp; 0 \\
+\beta &amp; 0 \\
+\end{pmatrix}
+\begin{pmatrix}
+\eta_1 \\
+\eta_2
+\end{pmatrix}
++
+\begin{pmatrix}
+\zeta_1 \\
+\zeta_2
+\end{pmatrix}
+\end{gathered}
+\]</span></p>
+<p>Or, more compactly as</p>
+<div class="nudge-up">
+<p><span class="math display">\[
+\begin{gathered}
+\mathbf y = {\color{Gray}\boldsymbol\nu +\,}  \boldsymbol\Lambda \boldsymbol\eta + \boldsymbol\epsilon \\
+\boldsymbol\eta = {\color{Gray}\boldsymbol\alpha +\,} \mathbf B \boldsymbol\eta + \boldsymbol\zeta
+\end{gathered}
+\]</span></p>
+<p>with assumptions <span class="math inline">\(\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, \boldsymbol\Theta)\)</span>, <span class="math inline">\(\boldsymbol\zeta\sim\operatorname{N}_q(\mathbf 0, \boldsymbol\Psi)\)</span>, and <span class="math inline">\(\operatorname{Cov}(\boldsymbol\epsilon, \boldsymbol\zeta)=\mathbf 0\)</span>.</p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>SEM parameters include the free entries of <span class="math inline">\(\boldsymbol\nu\)</span>, <span class="math inline">\(\boldsymbol\Lambda\)</span>, <span class="math inline">\(\boldsymbol\Theta\)</span>, <span class="math inline">\(\boldsymbol\alpha\)</span>, <span class="math inline">\(\mathbf B\)</span>, and <span class="math inline">\(\boldsymbol\Psi\)</span>.</p></li>
+<li><p>Dump all in <span class="math inline">\(\vartheta \in\mathbb R^m\)</span>, where <span class="math inline">\(m &lt; p(p+1)/2 {\color{Gray} \,+\, p}\)</span>.</p></li>
+<li><p>Sometimes, not interested in mean structure, so <span class="math inline">\(\boldsymbol\nu\)</span> and <span class="math inline">\(\boldsymbol\alpha\)</span> are dropped.</p></li>
+</ul>
+</div></div>
 </section>
 <section id="ml-estimation" class="slide level2">
 <h2>ML estimation</h2>
+<ul>
+<li>It can be shown that the normal SEM reduces to <span class="math inline">\(\mathbf y\sim \text{N}_p\big(\boldsymbol\mu(\vartheta), \boldsymbol\Sigma(\vartheta)\big)\)</span>, where <span class="math display">\[
+\begin{align}
+\boldsymbol\mu(\vartheta) &amp;= \boldsymbol\nu + \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\alpha  \\
+\boldsymbol\Sigma(\vartheta) &amp;= \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\Psi (\mathbf I - \mathbf B)^{-\top} \boldsymbol\Lambda^\top + \boldsymbol\Theta
+\end{align}
+\]</span></li>
+</ul>
+<div class="nudge-down-small">
+<ul>
+<li>Suppose we observe <span class="math inline">\(\mathcal Y= \{\mathbf y_1,\dots,\mathbf y_n\}\)</span>. ML estimation maximises (up to a constant) the log-likelihood <span class="math display">\[
+\ell(\vartheta)
+= -\frac{n}{2}\Bigl[
+\log \bigl|\boldsymbol\Sigma(\vartheta)\bigr|
++ \operatorname{tr} \bigl(\boldsymbol\Sigma(\vartheta)^{-1} \mathbf S\bigr)
++ \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)^{\top}
+  \boldsymbol\Sigma(\vartheta)^{-1}
+  \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)
+\Bigr]
+\]</span> where
+<ul>
+<li><span class="math inline">\(\mathbf S = \frac{1}{n}\sum_{i=1}^n (\mathbf y_i - \bar{\mathbf y})(\mathbf y_i - \bar{\mathbf y})^\top\)</span> is the (biased) sample covariance matrix; and</li>
+<li><span class="math inline">\(\bar{\mathbf y} = \frac{1}{n}\sum_{i=1}^n \mathbf y_i\)</span> is the sample mean.</li>
+</ul></li>
+</ul>
+<div class="nudge-down-small">
+<ul>
+<li>Clearly, the MLE aims to minimise the discrepancy between <span class="math inline">\(\mathbf S\)</span> and <span class="math inline">\(\boldsymbol\Sigma(\vartheta)\)</span>.</li>
+</ul>
+</div>
+</div>
 </section>
 <section id="properties-of-mle" class="slide level2">
 <h2>Properties of MLE</h2>
@@ -1007,7 +1121,7 @@ y_{3} &amp;= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1018,7 +1132,7 @@ y_{3} &amp;= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-5-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1029,7 +1143,7 @@ y_{3} &amp;= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1050,7 +1164,7 @@ y_{3} &amp;= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-7-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1061,7 +1175,7 @@ y_{3} &amp;= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-8-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1072,7 +1186,7 @@ y_{3} &amp;= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-9-1.png" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-10-1.png" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1734,7 +1848,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-11-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1747,7 +1861,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1760,7 +1874,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -1773,7 +1887,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="index_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="index_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
