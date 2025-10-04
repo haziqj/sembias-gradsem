@@ -137,11 +137,11 @@ Photo credits: Unsplash
 [\@benmullins](https://unsplash.com/photos/person-using-pencil-oXV3bzR7jxI).
 :::
 
-## Motivation
+## Key issue
 
-*"Using SEMs in empirical research is often challenged by small sample sizes."*
+[*"Using SEMs in empirical research is often challenged by small sample sizes."*]{.text-tur}
 
-- Why? Data collection is expensive, time-consuming, or difficult.
+- Why? Data collection is expensive, time-consuming, or difficult, or all of these!
 - Rare populations:
     - **@quezada2016explanatory:** Identifying factors of adjustment in pediatric burn patients to facilitate appropriate mental health interventions postinjury ($n=51$).
     - **@figueroa2021structural:** Studying functional connectivity network on individuals with rare genetic disorders ($n=22$).
@@ -165,6 +165,15 @@ Photo credits: Unsplash
       - Explicit correction
 3. **Simulation studies and results**
 
+$$
+\definecolor{kaustorg}{RGB}{241, 143, 0}
+\definecolor{kausttur}{RGB}{0, 166, 170}
+\definecolor{kaustmer}{RGB}{177, 15, 46}
+\definecolor{kaustgrn}{RGB}{173, 191, 4}
+\definecolor{kaustblu}{RGB}{82, 132, 196}
+\definecolor{kaustpur}{RGB}{156, 111, 174}
+$$
+
 # Structural equation models {.transition-slide}
 
 ## Motivating example
@@ -177,14 +186,23 @@ Photo credits: Unsplash
 ::: {.columns}
 
 ::: {.column width=48%}
-For $i=1,\dots,n$ patients, observe $p=6$ variables:
+Observe $p=6$ variables for each patient:
 
 ```{r}
 #| html-table-processing: none
 library(gt)
 
+vars <- c(
+  '<span class="math inline" style="color:#5284C4">\\\\(y_1\\\\)</span>',
+  '<span class="math inline" style="color:#5284C4">\\\\(y_2\\\\)</span>',
+  '<span class="math inline" style="color:#5284C4">\\\\(y_3\\\\)</span>',
+  '<span class="math inline" style="color:#b10f2e">\\\\(y_4\\\\)</span>',
+  '<span class="math inline" style="color:#b10f2e">\\\\(y_5\\\\)</span>',
+  '<span class="math inline" style="color:#b10f2e">\\\\(y_6\\\\)</span>'
+)
+
 tbl <- data.frame(
-  Variable = c("$x_1$", "$x_2$", "$x_3$", "$y_1$", "$y_2$", "$y_3$"),
+  Variable = vars,
   Indicator = c("HbA1c", "FPG", "Insulin", "PCr", "ACR", "BUN"),
   Description = c(
     "3-month avg. blood glucose",
@@ -202,7 +220,7 @@ tbl |>
   gt() |>
   # tab_header(title = md("**Observed Variables**")) |>
   cols_label(
-    Variable   = "Var.",
+    Variable   = "",
     Indicator  = "Indicator",
     Description = "Description",
     Unit       = "Unit"
@@ -230,15 +248,15 @@ tbl |>
 $$
 \small
 \begin{align*}
-y_{1} &= \beta_0^{(1)} + \beta_1^{(1)} x_1 + \beta_2^{(1)} x_2 + \beta_3^{(1)} x_3 + \epsilon^{(j)} \\
-y_{2} &= \beta_0^{(2)} + \beta_1^{(2)} x_1 + \beta_2^{(2)} x_2 + \beta_3^{(2)} x_3 + \epsilon^{(j)} \\
-y_{3} &= \beta_0^{(3)} + \beta_1^{(3)} x_1 + \beta_2^{(3)} x_2 + \beta_3^{(3)} x_3 + \epsilon^{(j)} \\
+\textcolor{kaustmer}{y_{4}} &= \beta_0^{(4)} + \beta_1^{(4)} \textcolor{kaustblu}{y_{1}} + \beta_2^{(4)} \textcolor{kaustblu}{y_{2}} + \beta_3^{(4)} \textcolor{kaustblu}{y_{3}} + \epsilon^{(4)} \\
+\textcolor{kaustmer}{y_{5}} &= \beta_0^{(5)} + \beta_1^{(5)} \textcolor{kaustblu}{y_{1}} + \beta_2^{(5)} \textcolor{kaustblu}{y_{2}} + \beta_3^{(5)} \textcolor{kaustblu}{y_{3}} + \epsilon^{(5)} \\
+\textcolor{kaustmer}{y_{6}} &= \beta_0^{(6)} + \beta_1^{(6)} \textcolor{kaustblu}{y_{1}} + \beta_2^{(6)} \textcolor{kaustblu}{y_{2}} + \beta_3^{(6)} \textcolor{kaustblu}{y_{3}} + \epsilon^{(6)} \\
 \end{align*}
 $$
 
 - Does not give a clear and direct answer.
 
-- Moreover, $x$'s are assumed to be measured without error.
+- Moreover, variables are assumed to be measured without error.
 
 :::
 :::
@@ -268,7 +286,7 @@ Sample correlation matrix looks like this^[Simulated data, from a two-factor SEM
 library(brlavaan)
 dat <- gen_data_twofac(n = 1000)
 z <- cor(dat)
-colnames(z) <- rownames(z) <- c("x[1]","x[2]","x[3]","y[1]","y[2]","y[3]")
+colnames(z) <- rownames(z) <- c("y[1]","y[2]","y[3]","y[4]","y[5]","y[6]")
 
 library(ggcorrplot)
 ggcorrplot(
@@ -292,14 +310,14 @@ ggcorrplot(
 ::: {.column width=55%}
 ::: {.nudge-down-medium}
 - The data suggests clustering of variables
-   - $x$'s measure *glycemic control*
-   - $y$'s measure *kidney health*
+   - [$y_1$,$y_2$,$y_3$]{.text-blu} measure *glycemic control* ([$\texttt{GlyCon}$]{.text-blu})
+   - [$y_4$,$y_5$,$y_6$]{.text-mer} measure *kidney health* ([$\texttt{KdnHlt}$]{.text-mer})
 
-- There is an element of dimension-reduction, much needed for analysing (correlated) multivariate data.
+- There is an element of dimension-reduction; much needed for analysing (correlated) multivariate data.
 
 - Easier to hypothesize relationships, e.g.
   $$
-  \texttt{KdnHlt} = \alpha + \beta \,  \texttt{GlyCon} + \texttt{error}
+  {\color{kaustmer}\texttt{KdnHlt}} = \alpha + \beta \,  {\color{kaustblu}\texttt{GlyCon}} + \texttt{error}
   $$
 
 
@@ -331,12 +349,12 @@ y_6
 \end{pmatrix}
 = 
 \begin{pmatrix}
-\lambda_{11} & 0 \\
-\lambda_{21} & 0 \\
-\lambda_{31} & 0 \\
-0 & \lambda_{42} \\
-0 & \lambda_{52} \\
-0 & \lambda_{62} \\
+\textcolor{kaustpur}{\lambda_{11}} & 0 \\
+\textcolor{kaustpur}{\lambda_{21}} & 0 \\
+\textcolor{kaustpur}{\lambda_{31}} & 0 \\
+0 & \textcolor{kaustpur}{\lambda_{42}} \\
+0 & \textcolor{kaustpur}{\lambda_{52}} \\
+0 & \textcolor{kaustpur}{\lambda_{62}} \\
 \end{pmatrix}
 \begin{pmatrix}
 \eta_1 \\
@@ -358,7 +376,7 @@ y_6
 =
 \begin{pmatrix}
 0 & 0 \\
-\beta & 0 \\
+{\color{kaustgrn}\beta} & 0 \\
 \end{pmatrix}
 \begin{pmatrix}
 \eta_1 \\
@@ -377,12 +395,12 @@ Or, more compactly as
 ::: {.nudge-up}
 $$
 \begin{gathered}
-\mathbf y = {\color{Gray}\boldsymbol\nu +\,}  \boldsymbol\Lambda \boldsymbol\eta + \boldsymbol\epsilon \\
-\boldsymbol\eta = {\color{Gray}\boldsymbol\alpha +\,} \mathbf B \boldsymbol\eta + \boldsymbol\zeta
+\mathbf y = {\color{Gray}\boldsymbol\nu +\,}  {\color{kaustpur}\boldsymbol\Lambda} \boldsymbol\eta + \boldsymbol\epsilon \\
+\boldsymbol\eta = {\color{Gray}\boldsymbol\alpha +\,} {\color{kaustgrn}\mathbf B} \boldsymbol\eta + \boldsymbol\zeta
 \end{gathered}
 $$
 
-with assumptions $\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, \boldsymbol\Theta)$, $\boldsymbol\zeta\sim\operatorname{N}_q(\mathbf 0, \boldsymbol\Psi)$, and $\operatorname{Cov}(\boldsymbol\epsilon, \boldsymbol\zeta)=\mathbf 0$.
+with assumptions $\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, {\color{kaustorg}\boldsymbol\Theta})$, $\boldsymbol\zeta\sim\operatorname{N}_q(\mathbf 0, {\color{kausttur}\boldsymbol\Psi})$, and $\operatorname{Cov}(\boldsymbol\epsilon, \boldsymbol\zeta)=\mathbf 0$.
 
 :::
 
@@ -395,6 +413,12 @@ with assumptions $\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, \boldsymb
 ```{r, engine = "tikz"}
 #| fig-align: center
 #| out-width: 100%
+\definecolor{kaustorg}{RGB}{241, 143, 0}
+\definecolor{kausttur}{RGB}{0, 166, 170}
+\definecolor{kaustmer}{RGB}{177, 15, 46}
+\definecolor{kaustgrn}{RGB}{173, 191, 4}
+\definecolor{kaustblu}{RGB}{82, 132, 196}
+\definecolor{kaustpur}{RGB}{156, 111, 174}
 \begin{tikzpicture}[%
   scale=0.88,
   >=stealth,
@@ -448,44 +472,44 @@ with assumptions $\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, \boldsymb
 %    \eta_{i2} -> y4, y5, y6
 % --------------------------------------------------------
 \draw[->] (eta1) -- node[pos=0.5, right] {$1$} (y1);
-\draw[->] (eta1) -- node[pos=0.5, right] {$\lambda_{21}$} (y2);
-\draw[->] (eta1) -- node[pos=0.5, right] {$\lambda_{31}$} (y3);
+\draw[->] (eta1) -- node[pos=0.5, right] {\color{kaustpur}$\lambda_{21}$} (y2);
+\draw[->] (eta1) -- node[pos=0.5, right] {\color{kaustpur}$\lambda_{31}$} (y3);
 
 \draw[->] (eta2) -- node[pos=0.5, right] {$1$} (y4);
-\draw[->] (eta2) -- node[pos=0.5, right] {$\lambda_{52}$} (y5);
-\draw[->] (eta2) -- node[pos=0.5, right] {$\lambda_{62}$} (y6);
+\draw[->] (eta2) -- node[pos=0.5, right] {\color{kaustpur}$\lambda_{52}$} (y5);
+\draw[->] (eta2) -- node[pos=0.5, right] {\color{kaustpur}$\lambda_{62}$} (y6);
 
 % --------------------------------------------------------
 % 5) REGRESSION BETWEEN LATENT VARIABLES
 %    \eta_1 -> \eta_2, labeled beta
 % --------------------------------------------------------
-\draw[->] (eta1) -- node[midway, above] {$\beta$} (eta2);
+\draw[->] (eta1) -- node[midway, above] {\color{kaustgrn}$\beta$} (eta2);
 
 % --------------------------------------------------------
 % 6) VARIANCES OF LATENT VARIABLES
 %    Double-headed arrows for psi_{11} and psi_{22}
 % --------------------------------------------------------
 \draw[<->] (eta1) to[out=200, in=230, looseness=4] 
-  node[left] {$\psi_{11}$} (eta1);
+  node[left] {\color{kausttur}$\psi_{11}$} (eta1);
 
 \draw[<->] (eta2) to[out=-50, in=-20, looseness=4] 
-  node[right] {$\psi_{22}$} (eta2);
+  node[right] {\color{kausttur}$\psi_{22}$} (eta2);
 
 \foreach \i in {1,...,6}{
   \draw[<->] (e\i)
     to[out=110, in=140, looseness=5]
-    node[above] {$\theta_{\i\i}$}
+    node[above] {\color{kaustorg}$\theta_{\i\i}$}
     (e\i);
 }
 
 \end{tikzpicture}
 ```
 
-- SEM parameters include the free entries of $\boldsymbol\nu$, $\boldsymbol\Lambda$, $\boldsymbol\Theta$, $\boldsymbol\alpha$, $\mathbf B$, and $\boldsymbol\Psi$. 
+- SEM parameters include the free entries of $\color{Gray}\boldsymbol\nu$, $\color{kaustpur}\boldsymbol\Lambda$, $\color{kaustorg}\boldsymbol\Theta$, $\color{Gray}\boldsymbol\alpha$, $\color{kaustgrn}\mathbf B$, and $\color{kausttur}\boldsymbol\Psi$. 
 
 - Dump all in $\vartheta \in\mathbb R^m$, where $m < p(p+1)/2 {\color{Gray} \,+\, p}$.
 
-- Sometimes, not interested in mean structure, so $\boldsymbol\nu$ and $\boldsymbol\alpha$ are dropped.
+- Sometimes, not interested in mean structure, so $\color{Gray}\boldsymbol\nu$ and $\color{Gray}\boldsymbol\alpha$ are dropped.
 
 :::
 
@@ -672,7 +696,7 @@ $$
 \end{bmatrix} 
 \\
 \\
-\mathbf y = \mathbf 0 + \boldsymbol\Lambda \boldsymbol\eta + \boldsymbol\epsilon \\
+\mathbf y = \boldsymbol\Lambda \boldsymbol\eta + \boldsymbol\epsilon \\
 \boldsymbol\epsilon \sim \operatorname{N}_{10}(\mathbf 0, \theta \mathbf I) \\
 \boldsymbol\eta \sim \operatorname{N}_2 (\boldsymbol\alpha, \boldsymbol\Psi) 
 \end{gathered}
@@ -800,7 +824,7 @@ For a comprehensive treatment of bias-reduction methods,
 
 
 ::: {.fragment}
-::: {.nudge-up}
+::: {.nudge-down}
 By the way, the $O(n^{-1})$ bias term $b_1(\bar\vartheta)/n = -I(\bar\vartheta)^{-1} C(\bar\vartheta)$, where
 $$
 \begin{gathered}
@@ -813,6 +837,7 @@ H_a(\vartheta)=-\mathbb E[I(\vartheta)s_a(\vartheta)] \\
 a=1,\dots,m
 \end{gathered}
 $$
+
 where $s(\vartheta) = \nabla\ell(\vartheta)$ is the score function.
 :::
 :::
