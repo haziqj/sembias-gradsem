@@ -1,5 +1,8 @@
 library(tidyverse)
 
+mycols <- c("#9C6FAE", "#5284C4", "#00A6AA", "#adbf04", "#F0B500", "#F18F00", "#b10f2e")
+mypal <- grDevices::colorRampPalette(mycols[1:5], space = "Lab")
+
 # Simulate data
 set.seed(1)
 n <- 100
@@ -85,7 +88,6 @@ p_erbm <-
   annotate("label", x = theta_tilde[1], y = theta_tilde[2],
            label = as.character(expression(tilde(theta))),
            parse = TRUE, vjust = 0.5, hjust = -0.2, size = 6, color = "#b10f2e") +
-
   scale_x_continuous(
     expand = c(0, 0),
     # breaks = theta_hat[1],
@@ -96,7 +98,7 @@ p_erbm <-
     # breaks = c(theta_hat[2], theta_tilde[2]),
     # labels = c(expression(hat(theta)[2]), expression(tilde(theta)[2]))
   ) +  
-  scale_fill_manual(values = terrain.colors(15)) +
+  scale_fill_manual(values = mypal(15)) +
   theme_minimal() +
   theme(
     legend.position = "none",
@@ -104,4 +106,4 @@ p_erbm <-
     axis.text = element_blank(),
     panel.grid.minor = element_blank()
   ) +
-  labs(x = NULL, y = NULL)
+  labs(x = NULL, y = NULL); p_erbm

@@ -963,7 +963,7 @@ $$
 \vartheta^*= \hat\vartheta + j(\hat\vartheta)^{-1} A(\hat\vartheta).
 $$
 
-This moves $\hat\theta$ in the direction $A(\hat\vartheta)$ away from the bias, with step length governed by the curvature $j(\hat\vartheta)^{-1}$.
+This moves $\hat\theta$ in the direction [$A(\hat\vartheta)$]{.text-mer} away from the bias, with step length governed by the curvature $j(\hat\vartheta)^{-1}$.
 
 ::: {.columns}
 
