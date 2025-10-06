@@ -92,7 +92,7 @@ p3 <-
   plot_drcomp |>
   filter(model == "growth", !method %in% c("lav")) |>
   mutate(param = forcats::fct_recode(param, 
-                                     'theta[11]' = 'Theta["1,1"]',
+                                     'theta' = 'Theta["1,1"]',
                                      'psi[11]' = 'Psi["1,1"]',
                                      'psi[22]' = 'Psi["2,2"]',
                                      'psi[12]' = 'Psi["1,2"]',)) |>

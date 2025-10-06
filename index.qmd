@@ -416,6 +416,9 @@ y_6
 \end{gathered}
 $$
 
+::: {.fragment}
+
+::: {.nudge-up-small}
 Or, more compactly as
 
 ::: {.nudge-up}
@@ -429,8 +432,8 @@ $$
 with assumptions $\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, {\color{kaustorg}\boldsymbol\Theta})$, $\boldsymbol\zeta\sim\operatorname{N}_q(\mathbf 0, {\color{kausttur}\boldsymbol\Psi})$, and $\operatorname{cov}(\boldsymbol\epsilon, \boldsymbol\zeta)=\mathbf 0$.
 
 :::
-
-
+:::
+:::
 
 :::
 :::
@@ -531,6 +534,8 @@ with assumptions $\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, {\color{k
 \end{tikzpicture}
 ```
 
+::: {.fragment}
+
 - SEM parameters include the free entries of $\color{Gray}\boldsymbol\nu$, $\color{kaustpur}\boldsymbol\Lambda$, $\color{kaustorg}\boldsymbol\Theta$, $\color{Gray}\boldsymbol\alpha$, $\color{kaustgrn}\mathbf B$, and $\color{kausttur}\boldsymbol\Psi$. 
 
 - Dump all in $\vartheta \in\mathbb R^m$, where $m < p(p+1)/2 {\color{Gray} \,+\, p}$.
@@ -541,17 +546,22 @@ with assumptions $\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, {\color{k
 
 :::
 
+:::
+
 ## ML estimation
+
+
 
 - It can be shown that the normal SEM reduces to $\mathbf y\sim \text{N}_p\big(\boldsymbol\mu(\vartheta), \boldsymbol\Sigma(\vartheta)\big)$, where
 $$
 \begin{align}
 \boldsymbol\mu(\vartheta) &= \boldsymbol\nu + \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\alpha  \\
-\boldsymbol\Sigma(\vartheta) &= \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\Psi (\mathbf I - \mathbf B)^{-\top} \boldsymbol\Lambda^\top + \boldsymbol\Theta
+\boldsymbol\Sigma(\vartheta) &= 
+\underbrace{\boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\Psi (\mathbf I - \mathbf B)^{-\top} \boldsymbol\Lambda^\top}_{\boldsymbol\Sigma^*(\vartheta)} + \boldsymbol\Theta
 \end{align}
 $${#eq-margsem}
 
-::: {.nudge-down-small}
+::: {.fragment}
 - Suppose we observe $\mathcal Y= \{\mathbf y_1,\dots,\mathbf y_n\}$. ML estimation maximises (up to a constant) the log-likelihood
   $$
   \ell(\vartheta)
@@ -570,7 +580,6 @@ $${#eq-margsem}
 ::: {.nudge-down-small}
 - Clearly, the MLE aims to minimise the discrepancy between $\mathbf S$ and $\boldsymbol\Sigma(\vartheta)$.
 :::
-
 :::
 
 ## Properties of MLE
@@ -618,8 +627,8 @@ $$
   ::: {.nudge-down-small}
 
   - $\alpha_1$ and $\alpha_2$ are fixed effects (intercept and slope);
-  - $\eta_1$ and $\eta_2$ are correlated random effects (individual deviations);
-  - $\epsilon_t\sim\text{N}(0,\theta)$ are measurement errors.
+  - $\eta_{1i}$ and $\eta_{2i}$ are correlated random effects (individual deviations);
+  - $\epsilon_{it}\sim\text{N}(0,\theta)$ are measurement errors.
 
   :::
 

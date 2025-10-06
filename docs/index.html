@@ -1016,6 +1016,8 @@ y_6
 \end{pmatrix}
 \end{gathered}
 \]</span></p>
+<div class="fragment">
+<div class="nudge-up-small">
 <p>Or, more compactly as</p>
 <div class="nudge-up">
 <p><span class="math display">\[
@@ -1025,6 +1027,8 @@ y_6
 \end{gathered}
 \]</span></p>
 <p>with assumptions <span class="math inline">\(\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, {\color{kaustorg}\boldsymbol\Theta})\)</span>, <span class="math inline">\(\boldsymbol\zeta\sim\operatorname{N}_q(\mathbf 0, {\color{kausttur}\boldsymbol\Psi})\)</span>, and <span class="math inline">\(\operatorname{cov}(\boldsymbol\epsilon, \boldsymbol\zeta)=\mathbf 0\)</span>.</p>
+</div>
+</div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -1037,11 +1041,13 @@ y_6
 </div>
 </div>
 </div>
+<div class="fragment">
 <ul>
 <li><p>SEM parameters include the free entries of <span class="math inline">\(\color{Gray}\boldsymbol\nu\)</span>, <span class="math inline">\(\color{kaustpur}\boldsymbol\Lambda\)</span>, <span class="math inline">\(\color{kaustorg}\boldsymbol\Theta\)</span>, <span class="math inline">\(\color{Gray}\boldsymbol\alpha\)</span>, <span class="math inline">\(\color{kaustgrn}\mathbf B\)</span>, and <span class="math inline">\(\color{kausttur}\boldsymbol\Psi\)</span>.</p></li>
 <li><p>Dump all in <span class="math inline">\(\vartheta \in\mathbb R^m\)</span>, where <span class="math inline">\(m &lt; p(p+1)/2 {\color{Gray} \,+\, p}\)</span>.</p></li>
 <li><p>Sometimes, not interested in mean structure, so <span class="math inline">\(\color{Gray}\boldsymbol\nu\)</span> and <span class="math inline">\(\color{Gray}\boldsymbol\alpha\)</span> are dropped.</p></li>
 </ul>
+</div>
 </div></div>
 </section>
 <section id="ml-estimation" class="slide level2">
@@ -1050,11 +1056,12 @@ y_6
 <li>It can be shown that the normal SEM reduces to <span class="math inline">\(\mathbf y\sim \text{N}_p\big(\boldsymbol\mu(\vartheta), \boldsymbol\Sigma(\vartheta)\big)\)</span>, where <span id="eq-margsem"><span class="math display">\[
 \begin{align}
 \boldsymbol\mu(\vartheta) &amp;= \boldsymbol\nu + \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\alpha  \\
-\boldsymbol\Sigma(\vartheta) &amp;= \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\Psi (\mathbf I - \mathbf B)^{-\top} \boldsymbol\Lambda^\top + \boldsymbol\Theta
+\boldsymbol\Sigma(\vartheta) &amp;=
+\underbrace{\boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\Psi (\mathbf I - \mathbf B)^{-\top} \boldsymbol\Lambda^\top}_{\boldsymbol\Sigma^*(\vartheta)} + \boldsymbol\Theta
 \end{align}
 \tag{1}\]</span></span></li>
 </ul>
-<div class="nudge-down-small">
+<div class="fragment">
 <ul>
 <li>Suppose we observe <span class="math inline">\(\mathcal Y= \{\mathbf y_1,\dots,\mathbf y_n\}\)</span>. ML estimation maximises (up to a constant) the log-likelihood <span id="eq-margloglik"><span class="math display">\[
 \ell(\vartheta)
@@ -1122,8 +1129,8 @@ y_{it} = \overbrace{(\alpha_1 + \eta_{1i})}^{\text{random int.}} +  \overbrace{(
 <div class="nudge-down-small">
 <ul>
 <li><span class="math inline">\(\alpha_1\)</span> and <span class="math inline">\(\alpha_2\)</span> are fixed effects (intercept and slope);</li>
-<li><span class="math inline">\(\eta_1\)</span> and <span class="math inline">\(\eta_2\)</span> are correlated random effects (individual deviations);</li>
-<li><span class="math inline">\(\epsilon_t\sim\text{N}(0,\theta)\)</span> are measurement errors.</li>
+<li><span class="math inline">\(\eta_{1i}\)</span> and <span class="math inline">\(\eta_{2i}\)</span> are correlated random effects (individual deviations);</li>
+<li><span class="math inline">\(\epsilon_{it}\sim\text{N}(0,\theta)\)</span> are measurement errors.</li>
 </ul>
 </div></li>
 </ul>
