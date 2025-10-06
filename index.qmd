@@ -89,14 +89,17 @@ source("R/results.R")
 
 > **Jamil, H.**, Rosseel, Y., Kemp, O., & Kosmidis, I. (2025). Bias-Reduced Estimation of Structural Equation Models. *Manuscript in Submission*. [`arXiv:2509.25419`](https://doi.org/10.48550/arXiv.2509.25419).
 
+::: {.nudge-down-small}
 - Source: <https://github.com/haziqj/sembias-gradsem>
+- Slides: <https://haziqj.ml/sembias-gradsem/slides.pdf>
 - R Package: <https://github.com/haziqj/brlavaan>
+:::
 
 :::
 
-[![](figures/qr.svg){height=235 width=235}]{.absolute bottom=10 right=0}
+[![](figures/qr.svg){height=245 width=245}]{.absolute bottom=-10 right=0}
 
-[[**poll**]{.bg-yel}]{.absolute bottom=220 right=235}
+[[**poll**]{.bg-yel}]{.absolute bottom=210 right=235}
 
 ## Context
 
