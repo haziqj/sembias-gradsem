@@ -264,6 +264,7 @@ tbl |>
 :::
 
 ::: {.column width=50%}
+::: {.fragment}
 ::: {.nudge-down}
 "*casewise*" thinking leads to
 $$
@@ -279,6 +280,7 @@ $$
 
 - Moreover, variables are assumed to be measured without error.
 
+:::
 :::
 :::
 
@@ -421,7 +423,7 @@ $$
 \end{gathered}
 $$
 
-with assumptions $\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, {\color{kaustorg}\boldsymbol\Theta})$, $\boldsymbol\zeta\sim\operatorname{N}_q(\mathbf 0, {\color{kausttur}\boldsymbol\Psi})$, and $\operatorname{Cov}(\boldsymbol\epsilon, \boldsymbol\zeta)=\mathbf 0$.
+with assumptions $\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, {\color{kaustorg}\boldsymbol\Theta})$, $\boldsymbol\zeta\sim\operatorname{N}_q(\mathbf 0, {\color{kausttur}\boldsymbol\Psi})$, and $\operatorname{cov}(\boldsymbol\epsilon, \boldsymbol\zeta)=\mathbf 0$.
 
 :::
 
@@ -544,7 +546,7 @@ $$
 \boldsymbol\mu(\vartheta) &= \boldsymbol\nu + \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\alpha  \\
 \boldsymbol\Sigma(\vartheta) &= \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\Psi (\mathbf I - \mathbf B)^{-\top} \boldsymbol\Lambda^\top + \boldsymbol\Theta
 \end{align}
-$$
+$${#eq-margsem}
 
 ::: {.nudge-down-small}
 - Suppose we observe $\mathcal Y= \{\mathbf y_1,\dots,\mathbf y_n\}$. ML estimation maximises (up to a constant) the log-likelihood
@@ -557,7 +559,7 @@ $$
     \boldsymbol\Sigma(\vartheta)^{-1}
     \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)
   \Bigr]
-  $$
+  $${#eq-margloglik}
   where 
     - $\mathbf S = \frac{1}{n}\sum_{i=1}^n (\mathbf y_i - \bar{\mathbf y})(\mathbf y_i - \bar{\mathbf y})^\top$ is the (biased) sample covariance matrix; and
     - $\bar{\mathbf y} = \frac{1}{n}\sum_{i=1}^n \mathbf y_i$ is the sample mean.
@@ -570,25 +572,24 @@ $$
 
 ## Properties of MLE
 
-Let $\bar{\vartheta}$ be the true parameter value.
+- Let $\bar{\vartheta}$ be the true parameter value.
 Subject to standard regularity conditions [@cox1979theoretical], as $n\to\infty$,
-
 $$
 \sqrt n (\hat\vartheta - \bar\vartheta) \xrightarrow{\;\;\text D\;\;} 
-\begin{cases}
-\text N_m\left(\mathbf 0, \big[ U(\bar\vartheta)V(\bar\vartheta)^{-1} U(\bar\vartheta) \big]^{-1} \right) &\text{model misspecified} \\
-\text{N}_m\big(\mathbf 0, I(\bar\vartheta)^{-1} \big) &\text{otherwise}
-\end{cases}
-$$
-where
+\text N_m\left(\mathbf 0, \big[ U(\bar\vartheta)V(\bar\vartheta)^{-1} U(\bar\vartheta) \big]^{-1} \right)
+$${#eq-asympmle}
+  where
+  
+  - $U(\vartheta) = -\mathbb{E}\left[ \nabla\nabla^\top \ell_1(\vartheta) \right]$ is the *sensitivity matrix*; and
+  - $V(\vartheta) = \operatorname{var}\left[ \nabla\ell_1(\vartheta) \right]$ is the *variability matrix*.
 
-- $I(\vartheta) = \mathbb{E}\left[ \nabla\ell_1(\vartheta)\nabla\ell_1(\vartheta)^\top \right]$ is the *Fisher information*;
-- $U(\vartheta) = -\mathbb{E}\left[ \nabla\nabla^\top \ell_1(\vartheta) \right]$ is the *sensitivity matrix*; and
-- $V(\vartheta) = \mathbb{E}\left[ \nabla\ell_1(\vartheta)\nabla\ell_1(\vartheta)^\top \right]$ is the *variability matrix*.
+::: {.nudge-down}
+- Calculation of SEs are based off <u>estimates</u> of these matrices.
+The Godambe or "sandwich" matrix gives robust SEs [@satorra1994corrections;@savalei2014understanding] in cases of model misspecification.
 
-::: {.nudge-up}
-Calculation of SEs are based off estimates of these matrices.
-The "sandwich" matrix gives robust SEs [@satorra1994corrections;@savalei2014understanding].
+::: {.nudge-down-small}
+- *If* model is correctly specified, $U(\vartheta) = V(\vartheta) = I(\vartheta)$, the Fisher information.
+:::
 :::
 
 ## Latent growth curve model (GCM)
@@ -733,15 +734,7 @@ $$
 
 <br>
 
-<script type="text/javascript">
-(function(d,s,id,u){
-  if (d.getElementById(id)) return;
-  var js, sjs = d.getElementsByTagName(s)[0],
-      t = Math.floor(new Date().getTime() / 1000000);
-  js=d.createElement(s); js.id=id; js.async=1; js.src=u+'?'+t;
-  sjs.parentNode.insertBefore(js, sjs);
-}(document, 'script', 'os-widget-jssdk', 'https://www.opinionstage.com/assets/loader.js'));
-</script><div id="os-widget-1442362" data-opinionstage-widget="4a6d1509-d5fb-41bc-b956-7a8fe5e49750"></div>
+<iframe name="opinionstage-widget" src="https://www.opinionstage.com/api/v2/widgets/4a6d1509-d5fb-41bc-b956-7a8fe5e49750/iframe?em=1" data-opinionstage-iframe="4a6d1509-d5fb-41bc-b956-7a8fe5e49750" width="100%" height="60%" scrolling="auto" style="border:none;box-shadow:0px 0px 12px rgba(0,0,0,0.25);border-radius:12px" frameBorder="0" allow="fullscreen" webkitallowfullscreen="true" mozallowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 ## What is bias?
 
@@ -757,7 +750,7 @@ Consider the stochastic Taylor expansion of $s(\hat\vartheta)=\nabla\ell(\varthe
 For many common estimators including MLE, the bias function is:
 $$
 \mathcal B_{\bar\vartheta} = \frac{b_1(\bar\vartheta)}{n} +  \frac{b_2(\bar\vartheta)}{n^2} + \frac{b_3(\bar\vartheta)}{n^3} +O(n^{-4}).
-$$
+$${#eq-biasseries}
 
 ::: {.nudge-up}
 Bias arises because the roots of the score equations are **not exactly centred at $\bar\vartheta$**, due to:
@@ -833,7 +826,7 @@ plot_sigma2_score(n = 15) + coord_cartesian(ylim = c(-8, 28))
 #| out-width: 100%
 #| fig-height: 2.9
 #| fig-width: 7.4
-plot_sigma2_score(n = 50, showbias = FALSE) + coord_cartesian(ylim = c(-8, 300))
+plot_sigma2_score(n = 50, showbias = !TRUE) + coord_cartesian(ylim = c(-8, 300))
 ```
 
 ### $n=1000$

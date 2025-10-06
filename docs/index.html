@@ -116,7 +116,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-8463af48ca2be4350986812dfaa353be.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-ef0f803811a2a3b5c4009ae6217106b4.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -899,6 +899,7 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width:50%;">
+<div class="fragment">
 <div class="nudge-down">
 <p>“<em>casewise</em>” thinking leads to <span class="math display">\[
 \small
@@ -912,6 +913,7 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <li><p>Does not give a clear and direct answer.</p></li>
 <li><p>Moreover, variables are assumed to be measured without error.</p></li>
 </ul>
+</div>
 </div>
 </div></div>
 
@@ -1019,7 +1021,7 @@ y_6
 \boldsymbol\eta = {\color{Gray}\boldsymbol\alpha +\,} {\color{kaustgrn}\mathbf B} \boldsymbol\eta + \boldsymbol\zeta
 \end{gathered}
 \]</span></p>
-<p>with assumptions <span class="math inline">\(\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, {\color{kaustorg}\boldsymbol\Theta})\)</span>, <span class="math inline">\(\boldsymbol\zeta\sim\operatorname{N}_q(\mathbf 0, {\color{kausttur}\boldsymbol\Psi})\)</span>, and <span class="math inline">\(\operatorname{Cov}(\boldsymbol\epsilon, \boldsymbol\zeta)=\mathbf 0\)</span>.</p>
+<p>with assumptions <span class="math inline">\(\boldsymbol\epsilon\sim\operatorname{N}_p(\mathbf 0, {\color{kaustorg}\boldsymbol\Theta})\)</span>, <span class="math inline">\(\boldsymbol\zeta\sim\operatorname{N}_q(\mathbf 0, {\color{kausttur}\boldsymbol\Psi})\)</span>, and <span class="math inline">\(\operatorname{cov}(\boldsymbol\epsilon, \boldsymbol\zeta)=\mathbf 0\)</span>.</p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -1042,16 +1044,16 @@ y_6
 <section id="ml-estimation" class="slide level2">
 <h2>ML estimation</h2>
 <ul>
-<li>It can be shown that the normal SEM reduces to <span class="math inline">\(\mathbf y\sim \text{N}_p\big(\boldsymbol\mu(\vartheta), \boldsymbol\Sigma(\vartheta)\big)\)</span>, where <span class="math display">\[
+<li>It can be shown that the normal SEM reduces to <span class="math inline">\(\mathbf y\sim \text{N}_p\big(\boldsymbol\mu(\vartheta), \boldsymbol\Sigma(\vartheta)\big)\)</span>, where <span id="eq-margsem"><span class="math display">\[
 \begin{align}
 \boldsymbol\mu(\vartheta) &amp;= \boldsymbol\nu + \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\alpha  \\
 \boldsymbol\Sigma(\vartheta) &amp;= \boldsymbol\Lambda (\mathbf I - \mathbf B)^{-1} \boldsymbol\Psi (\mathbf I - \mathbf B)^{-\top} \boldsymbol\Lambda^\top + \boldsymbol\Theta
 \end{align}
-\]</span></li>
+\tag{1}\]</span></span></li>
 </ul>
 <div class="nudge-down-small">
 <ul>
-<li>Suppose we observe <span class="math inline">\(\mathcal Y= \{\mathbf y_1,\dots,\mathbf y_n\}\)</span>. ML estimation maximises (up to a constant) the log-likelihood <span class="math display">\[
+<li>Suppose we observe <span class="math inline">\(\mathcal Y= \{\mathbf y_1,\dots,\mathbf y_n\}\)</span>. ML estimation maximises (up to a constant) the log-likelihood <span id="eq-margloglik"><span class="math display">\[
 \ell(\vartheta)
 = -\frac{n}{2}\Bigl[
 \log \bigl|\boldsymbol\Sigma(\vartheta)\bigr|
@@ -1060,7 +1062,7 @@ y_6
   \boldsymbol\Sigma(\vartheta)^{-1}
   \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)
 \Bigr]
-\]</span> where
+\tag{2}\]</span></span> where
 <ul>
 <li><span class="math inline">\(\mathbf S = \frac{1}{n}\sum_{i=1}^n (\mathbf y_i - \bar{\mathbf y})(\mathbf y_i - \bar{\mathbf y})^\top\)</span> is the (biased) sample covariance matrix; and</li>
 <li><span class="math inline">\(\bar{\mathbf y} = \frac{1}{n}\sum_{i=1}^n \mathbf y_i\)</span> is the sample mean.</li>
@@ -1075,21 +1077,25 @@ y_6
 </section>
 <section id="properties-of-mle" class="slide level2">
 <h2>Properties of MLE</h2>
-<p>Let <span class="math inline">\(\bar{\vartheta}\)</span> be the true parameter value. Subject to standard regularity conditions <span class="citation" data-cites="cox1979theoretical">(<a href="#/references" role="doc-biblioref" onclick="">Cox and Hinkley 1979</a>)</span>, as <span class="math inline">\(n\to\infty\)</span>,</p>
-<p><span class="math display">\[
-\sqrt n (\hat\vartheta - \bar\vartheta) \xrightarrow{\;\;\text D\;\;}
-\begin{cases}
-\text N_m\left(\mathbf 0, \big[ U(\bar\vartheta)V(\bar\vartheta)^{-1} U(\bar\vartheta) \big]^{-1} \right) &amp;\text{model misspecified} \\
-\text{N}_m\big(\mathbf 0, I(\bar\vartheta)^{-1} \big) &amp;\text{otherwise}
-\end{cases}
-\]</span> where</p>
 <ul>
-<li><span class="math inline">\(I(\vartheta) = \mathbb{E}\left[ \nabla\ell_1(\vartheta)\nabla\ell_1(\vartheta)^\top \right]\)</span> is the <em>Fisher information</em>;</li>
+<li><p>Let <span class="math inline">\(\bar{\vartheta}\)</span> be the true parameter value. Subject to standard regularity conditions <span class="citation" data-cites="cox1979theoretical">(<a href="#/references" role="doc-biblioref" onclick="">Cox and Hinkley 1979</a>)</span>, as <span class="math inline">\(n\to\infty\)</span>, <span id="eq-asympmle"><span class="math display">\[
+\sqrt n (\hat\vartheta - \bar\vartheta) \xrightarrow{\;\;\text D\;\;}
+\text N_m\left(\mathbf 0, \big[ U(\bar\vartheta)V(\bar\vartheta)^{-1} U(\bar\vartheta) \big]^{-1} \right)
+\tag{3}\]</span></span> where</p>
+<ul>
 <li><span class="math inline">\(U(\vartheta) = -\mathbb{E}\left[ \nabla\nabla^\top \ell_1(\vartheta) \right]\)</span> is the <em>sensitivity matrix</em>; and</li>
-<li><span class="math inline">\(V(\vartheta) = \mathbb{E}\left[ \nabla\ell_1(\vartheta)\nabla\ell_1(\vartheta)^\top \right]\)</span> is the <em>variability matrix</em>.</li>
+<li><span class="math inline">\(V(\vartheta) = \operatorname{var}\left[ \nabla\ell_1(\vartheta) \right]\)</span> is the <em>variability matrix</em>.</li>
+</ul></li>
 </ul>
-<div class="nudge-up">
-<p>Calculation of SEs are based off estimates of these matrices. The “sandwich” matrix gives robust SEs <span class="citation" data-cites="satorra1994corrections savalei2014understanding">(<a href="#/references" role="doc-biblioref" onclick="">Satorra and Bentler 1994</a>; <a href="#/references" role="doc-biblioref" onclick="">Savalei 2014</a>)</span>.</p>
+<div class="nudge-down">
+<ul>
+<li>Calculation of SEs are based off <u>estimates</u> of these matrices. The Godambe or “sandwich” matrix gives robust SEs <span class="citation" data-cites="satorra1994corrections savalei2014understanding">(<a href="#/references" role="doc-biblioref" onclick="">Satorra and Bentler 1994</a>; <a href="#/references" role="doc-biblioref" onclick="">Savalei 2014</a>)</span> in cases of model misspecification.</li>
+</ul>
+<div class="nudge-down-small">
+<ul>
+<li><em>If</em> model is correctly specified, <span class="math inline">\(U(\vartheta) = V(\vartheta) = I(\vartheta)\)</span>, the Fisher information.</li>
+</ul>
+</div>
 </div>
 </section>
 <section id="latent-growth-curve-model-gcm" class="slide level2">
@@ -1161,18 +1167,8 @@ y_{it} = \overbrace{(\alpha_1 + \eta_{1i})}^{\text{random int.}} +  \overbrace{(
 <section id="poll" class="slide level2">
 <h2>Poll</h2>
 <p><br></p>
-<script type="text/javascript">
-(function(d,s,id,u){
-  if (d.getElementById(id)) return;
-  var js, sjs = d.getElementsByTagName(s)[0],
-      t = Math.floor(new Date().getTime() / 1000000);
-  js=d.createElement(s); js.id=id; js.async=1; js.src=u+'?'+t;
-  sjs.parentNode.insertBefore(js, sjs);
-}(document, 'script', 'os-widget-jssdk', 'https://www.opinionstage.com/assets/loader.js'));
-</script>
-<div id="os-widget-1442362" data-opinionstage-widget="4a6d1509-d5fb-41bc-b956-7a8fe5e49750">
-
-</div>
+<iframe name="opinionstage-widget" src="https://www.opinionstage.com/api/v2/widgets/4a6d1509-d5fb-41bc-b956-7a8fe5e49750/iframe?em=1" data-opinionstage-iframe="4a6d1509-d5fb-41bc-b956-7a8fe5e49750" width="100%" height="60%" scrolling="auto" style="border:none;box-shadow:0px 0px 12px rgba(0,0,0,0.25);border-radius:12px" frameborder="0" allow="fullscreen" webkitallowfullscreen="true" mozallowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+</iframe>
 </section>
 <section id="what-is-bias" class="slide level2">
 <h2>What is bias?</h2>
@@ -1184,13 +1180,13 @@ y_{it} = \overbrace{(\alpha_1 + \eta_{1i})}^{\text{random int.}} +  \overbrace{(
 <div class="callout-content">
 <p><span id="eq-bias"><span class="math display">\[
 \mathcal B_{\bar\vartheta}(\hat\vartheta) = \mathbb E\left[\hat\vartheta - \bar\vartheta\right]
-\tag{1}\]</span></span></p>
+\tag{4}\]</span></span></p>
 </div>
 </div>
 </div>
-<p>Consider the stochastic Taylor expansion of <span class="math inline">\(s(\hat\vartheta)=\nabla\ell(\vartheta)=0\)</span> around <span class="math inline">\(\bar\vartheta\)</span>. For many common estimators including MLE, the bias function is: <span class="math display">\[
+<p>Consider the stochastic Taylor expansion of <span class="math inline">\(s(\hat\vartheta)=\nabla\ell(\vartheta)=0\)</span> around <span class="math inline">\(\bar\vartheta\)</span>. For many common estimators including MLE, the bias function is: <span id="eq-biasseries"><span class="math display">\[
 \mathcal B_{\bar\vartheta} = \frac{b_1(\bar\vartheta)}{n} +  \frac{b_2(\bar\vartheta)}{n^2} + \frac{b_3(\bar\vartheta)}{n^3} +O(n^{-4}).
-\]</span></p>
+\tag{5}\]</span></span></p>
 <div class="nudge-up">
 <p>Bias arises because the roots of the score equations are <strong>not exactly centred at <span class="math inline">\(\bar\vartheta\)</span></strong>, due to:</p>
 <div class="nudge-up-small">
@@ -1890,7 +1886,7 @@ a=1,\dots,m
 <p>Computing <span class="math inline">\(\mathcal B(\vartheta)\)</span> and <span class="math inline">\(I(\vartheta)\)</span> can be difficult. Consider</p>
 <p><span id="eq-irbm"><span class="math display">\[
 s(\vartheta) + A(\vartheta) = 0 \ \Leftrightarrow \ \underset{\vartheta}{\text{arg max}} \left \{ \ell(\vartheta) + P(\vartheta) \right\}
-\tag{2}\]</span></span></p>
+\tag{6}\]</span></span></p>
 <p>where <span class="math inline">\(P(\vartheta)\)</span> is a penalty term constructed such that <span class="math inline">\(A(\vartheta) = \nabla P(\vartheta)\)</span>. <span class="citation" data-cites="kosmidis2024empirical">Kosmidis and Lunardon (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> show that <span class="math display">\[
 P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\vartheta) \Big\}
 \]</span></p>
@@ -1901,7 +1897,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <li><span class="math inline">\(e(\vartheta) = \sum_{i=1}^n \nabla\ell_i(\vartheta)\nabla^\top\ell_i(\vartheta)\nabla\ell_i(\vartheta)\)</span> is the outer-product of scores.</li>
 </ul>
 <div class="nudge-up-small">
-<p>The solution <span class="math inline">\(\tilde\vartheta\)</span> to (<a href="#/eq-irbm" class="quarto-xref">2</a>) is called the <span><em>implicit</em> RBM estimator (iRBM)</span>.</p>
+<p>The solution <span class="math inline">\(\tilde\vartheta\)</span> to (<a href="#/eq-irbm" class="quarto-xref">6</a>) is called the <span><em>implicit</em> RBM estimator (iRBM)</span>.</p>
 </div>
 </div>
 </section>

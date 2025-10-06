@@ -270,7 +270,7 @@ $selection-bg: kaust(tur) !default;
 // Move "hamburger" menu button to bottom right
 .reveal .slide-menu-button {
   position: fixed;
-  bottom: 5px !important;
+  bottom: 8px !important;
   right: 5px;
   display: flex;
   justify-content: flex-end;
@@ -286,7 +286,7 @@ $selection-bg: kaust(tur) !default;
 
 .reveal .slide-chalkboard-buttons {
   position: fixed;
-  bottom: 12px !important;
+  bottom: 15px !important;
   right: 35px !important;
   display: flex;
   justify-content: flex-end;
@@ -365,7 +365,7 @@ $selection-bg: kaust(tur) !default;
 .slide-number, .reveal.has-logo .slide-number {
   top: unset !important;
   right: unset !important;
-  bottom: 8px !important;
+  bottom: 11px !important;
   left: 8px !important;
   color: mix(white, kaust(gry, neu), 30%) !important;
 }
