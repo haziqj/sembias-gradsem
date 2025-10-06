@@ -1133,11 +1133,11 @@ p3
 
 RBM applied to small sample estimation of SEM show key advantages:
 
-- Improved estimator performances (mean & median bias, RMSE, coverage).
+- 🚀 Improved estimator performances (mean & median bias, RMSE, coverage).
 
-- Computationally efficient (c.f. resampling methods).
+- 💻 Computationally efficient (c.f. resampling methods).
 
-- Robust to model misspecification.
+- 🤖 Robust to model misspecification.
 
 Future work include
 
@@ -1146,7 +1146,7 @@ Future work include
 2. Plugin penalties to limit exploration of ill-conditioned regions.
 
 3. Extension to other SEM families, e.g.
-   - Mediation models, latent interactions, etc.
+   - Path models, mediation models, latent interactions, etc.
    - Alternative to ML estimation e.g. WLS, DWLS, etc.
 
 ## Software 
