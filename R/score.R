@@ -44,7 +44,7 @@ plot_sigma2_score <- function(n = 15, B = 100, sigma2 = 1, showbias = TRUE) {
   # Plot
   p <-
     ggplot(plot_df, aes(theta, score, group = b)) +
-    geom_line(linewidth = 0.1, col = "#F18F00", alpha = 0.9) +
+    geom_line(linewidth = 0.1, col = "#F18F00", alpha = 0.7) +
     geom_hline(yintercept = 0, linetype = "dashed") +
     geom_line(
       data = plot_df2,

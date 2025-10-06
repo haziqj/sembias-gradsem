@@ -116,7 +116,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-ef0f803811a2a3b5c4009ae6217106b4.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-443da90d614da2b64081eaee399990a7.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -1068,9 +1068,9 @@ y_6
 = -\frac{n}{2}\Bigl[
 \log \bigl|\boldsymbol\Sigma(\vartheta)\bigr|
 + \operatorname{tr} \bigl(\boldsymbol\Sigma(\vartheta)^{-1} \mathbf S\bigr)
-+ \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)^{\top}
+{\color{Gray}+ \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)^{\top}
   \boldsymbol\Sigma(\vartheta)^{-1}
-  \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)
+  \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)}
 \Bigr]
 \tag{2}\]</span></span> where
 <ul>
@@ -1111,7 +1111,7 @@ y_6
 <section id="latent-growth-curve-model-gcm" class="slide level2">
 <h2>Latent growth curve model (GCM)</h2>
 <ul>
-<li><p><strong>Longitudinal data:</strong> repeated measurements on individuals <span class="math inline">\(i\)</span> over time, e.g.&nbsp;<span class="math inline">\(\mathbf y_i = (y_{i1},y_{i2},\dots,y_{i10})\)</span>, <span class="math inline">\(i=1,\dots,n\)</span> <span class="citation" data-cites="rabe2008multilevel">(<a href="#/references" role="doc-biblioref" onclick="">Rabe-Hesketh and Skrondal 2008</a>)</span>.</p></li>
+<li><p><strong>Longitudinal data:</strong> repeated measurements on individuals <span class="math inline">\(i\)</span> over time, e.g.&nbsp;<span class="math inline">\(\mathbf y_i = (y_{i1},y_{i2},\dots,y_{i10})^\top\)</span>, <span class="math inline">\(i=1,\dots,n\)</span> <span class="citation" data-cites="rabe2008multilevel">(<a href="#/references" role="doc-biblioref" onclick="">Rabe-Hesketh and Skrondal 2008</a>)</span>.</p></li>
 <li><p>Usually, linear mixed effects models are used, where <span class="math display">\[
 \begin{gathered}
 y_{it} = \overbrace{(\alpha_1 + \eta_{1i})}^{\text{random int.}} +  \overbrace{(\alpha_2 + \eta_{2i})}^{\text{random slope}} \cdot (t-1) + \epsilon_{it} \quad\quad t=1,\dots,10 \\[0.5em]
@@ -1194,7 +1194,7 @@ y_{it} = \overbrace{(\alpha_1 + \eta_{1i})}^{\text{random int.}} +  \overbrace{(
 </div>
 </div>
 </div>
-<p>Consider the stochastic Taylor expansion of <span class="math inline">\(s(\hat\vartheta)=\nabla\ell(\vartheta)=0\)</span> around <span class="math inline">\(\bar\vartheta\)</span>. For many common estimators including MLE, the bias function is: <span id="eq-biasseries"><span class="math display">\[
+<p>Consider the stochastic Taylor expansion of <span class="math inline">\(s(\hat\vartheta)=\nabla\ell(\hat\vartheta)=0\)</span> around <span class="math inline">\(\bar\vartheta\)</span>. For many common estimators including MLE, the bias function is: <span id="eq-biasseries"><span class="math display">\[
 \mathcal B_{\bar\vartheta} = \frac{b_1(\bar\vartheta)}{n} +  \frac{b_2(\bar\vartheta)}{n^2} + \frac{b_3(\bar\vartheta)}{n^3} +O(n^{-4}).
 \tag{5}\]</span></span></p>
 <div class="nudge-up">
@@ -1253,7 +1253,7 @@ y_{it} = \overbrace{(\alpha_1 + \eta_{1i})}^{\text{random int.}} +  \overbrace{(
 <section id="illustration-cont." class="slide level2">
 <h2>Illustration (cont.)</h2>
 <h3 id="score-functions-are-random-too">Score functions are random too</h3>
-<p>The score is <span class="math inline">\(s(\sigma^2)=\ell'(\sigma^2) = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}\sum_{i=1}^n X_i^2\)</span>.</p>
+<p>The score function is <span class="math inline">\(s(\sigma^2)=\ell'(\sigma^2) = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}\sum_{i=1}^n X_i^2\)</span>.</p>
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1"><span class="math inline">\(n=10\)</span></a></li><li><a href="#tabset-2-2"><span class="math inline">\(n=25\)</span></a></li><li><a href="#tabset-2-3"><span class="math inline">\(n=1000\)</span></a></li></ul>
 <div class="tab-content">
@@ -1897,10 +1897,10 @@ a=1,\dots,m
 <p><span id="eq-irbm"><span class="math display">\[
 s(\vartheta) + A(\vartheta) = 0 \ \Leftrightarrow \ \underset{\vartheta}{\text{arg max}} \left \{ \ell(\vartheta) + P(\vartheta) \right\}
 \tag{6}\]</span></span></p>
-<p>where <span class="math inline">\(P(\vartheta)\)</span> is a penalty term constructed such that <span class="math inline">\(A(\vartheta) = \nabla P(\vartheta)\)</span>. <span class="citation" data-cites="kosmidis2024empirical">Kosmidis and Lunardon (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> show that <span class="math display">\[
+<div class="nudge-up-small">
+<p>where <span class="math inline">\(P(\vartheta)\)</span> is a penalty term constructed such that <span class="math inline">\(A(\vartheta) = \nabla P(\vartheta)\)</span>. <span class="citation" data-cites="kosmidis2024empirical">Kosmidis and Lunardon (<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span> show that <span id="eq-penaltyterm"><span class="math display">\[
 P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\vartheta) \Big\}
-\]</span></p>
-<p>where</p>
+\tag{7}\]</span></span> where</p>
 <div class="nudge-up-small">
 <ul>
 <li><span class="math inline">\(j(\vartheta) = \sum_{i=1}^n \nabla\nabla^\top \ell_i(\vartheta)\)</span> is the observed information;</li>
@@ -1908,6 +1908,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 </ul>
 <div class="nudge-up-small">
 <p>The solution <span class="math inline">\(\tilde\vartheta\)</span> to (<a href="#/eq-irbm" class="quarto-xref">6</a>) is called the <span><em>implicit</em> RBM estimator (iRBM)</span>.</p>
+</div>
 </div>
 </div>
 </section>
@@ -1947,9 +1948,9 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <!--    1. Two-factor SEM ($m=13$ estimable params). -->
 <!--    2. Latent growth curve model ($m=6$ estimable params). -->
 <ul>
-<li><p>Sample size: <span class="math inline">\(n\in \{15,20,50,100,1000\}\)</span></p></li>
-<li><p>Item reliability: Low or High (<span class="math inline">\(\operatorname{Rel} = p^{-1}\sum_{j=1}^p \boldsymbol\Sigma_{jj}^* / \boldsymbol\Sigma_{jj}\)</span>)</p></li>
-<li><p>Distributional assumption: Normal or Non-normal</p></li>
+<li><p><strong>Sample size:</strong> <span class="math inline">\(n\in \{15,20,50,100,1000\}\)</span></p></li>
+<li><p><strong>Item reliability:</strong> Low or High (<span class="math inline">\(\operatorname{Rel} = p^{-1}\sum_{j=1}^p \boldsymbol\Sigma_{jj}^* / \boldsymbol\Sigma_{jj}\)</span>)</p></li>
+<li><p><strong>Distributional assumption:</strong> Normal or Non-normal</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">

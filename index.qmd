@@ -568,9 +568,9 @@ $${#eq-margsem}
   = -\frac{n}{2}\Bigl[
   \log \bigl|\boldsymbol\Sigma(\vartheta)\bigr|
   + \operatorname{tr} \bigl(\boldsymbol\Sigma(\vartheta)^{-1} \mathbf S\bigr)
-  + \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)^{\top}
+  {\color{Gray}+ \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)^{\top}
     \boldsymbol\Sigma(\vartheta)^{-1}
-    \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)
+    \bigl(\bar {\mathbf y} - \boldsymbol\mu(\vartheta)\bigr)}
   \Bigr]
   $${#eq-margloglik}
   where 
@@ -606,7 +606,7 @@ The Godambe or "sandwich" matrix gives robust SEs [@satorra1994corrections;@sava
 
 ## Latent growth curve model (GCM)
 
-- **Longitudinal data:** repeated measurements on individuals $i$ over time, e.g. $\mathbf y_i = (y_{i1},y_{i2},\dots,y_{i10})$, $i=1,\dots,n$ [@rabe2008multilevel].
+- **Longitudinal data:** repeated measurements on individuals $i$ over time, e.g. $\mathbf y_i = (y_{i1},y_{i2},\dots,y_{i10})^\top$, $i=1,\dots,n$ [@rabe2008multilevel].
 
 - Usually, linear mixed effects models are used, where
 $$
@@ -758,7 +758,7 @@ $${#eq-bias}
 :::
 
 
-Consider the stochastic Taylor expansion of $s(\hat\vartheta)=\nabla\ell(\vartheta)=0$ around $\bar\vartheta$.
+Consider the stochastic Taylor expansion of $s(\hat\vartheta)=\nabla\ell(\hat\vartheta)=0$ around $\bar\vartheta$.
 For many common estimators including MLE, the bias function is:
 $$
 \mathcal B_{\bar\vartheta} = \frac{b_1(\bar\vartheta)}{n} +  \frac{b_2(\bar\vartheta)}{n^2} + \frac{b_3(\bar\vartheta)}{n^3} +O(n^{-4}).
@@ -818,7 +818,7 @@ plot_sigma2_bias(n = 1000)
 
 ### Score functions are random too
 
-The score is $s(\sigma^2)=\ell'(\sigma^2) = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}\sum_{i=1}^n X_i^2$.
+The score function is $s(\sigma^2)=\ell'(\sigma^2) = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4}\sum_{i=1}^n X_i^2$.
 
 ::: {.panel-tabset}
 
@@ -977,12 +977,12 @@ $$
 s(\vartheta) + A(\vartheta) = 0 \ \Leftrightarrow \ \underset{\vartheta}{\text{arg max}} \left \{ \ell(\vartheta) + P(\vartheta) \right\}
 $${#eq-irbm}
 
+::: {.nudge-up-small}
 where $P(\vartheta)$ is a penalty term constructed such that $A(\vartheta) = \nabla P(\vartheta)$. 
 @kosmidis2024empirical show that
 $$
 P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\vartheta) \Big\}
-$$ 
-
+$${#eq-penaltyterm}
 where
 
 ::: {.nudge-up-small}
@@ -991,6 +991,7 @@ where
 
 ::: {.nudge-up-small}
 The solution $\tilde\vartheta$ to (-@eq-irbm) is called the [*implicit* RBM estimator (iRBM)]{}.
+:::
 :::
 :::
 
@@ -1033,11 +1034,11 @@ p_erbm
 <!--    1. Two-factor SEM ($m=13$ estimable params). -->
 <!--    2. Latent growth curve model ($m=6$ estimable params). -->
    
-- Sample size: $n\in \{15,20,50,100,1000\}$
+- **Sample size:** $n\in \{15,20,50,100,1000\}$
 
-- Item reliability: Low or High ($\operatorname{Rel} = p^{-1}\sum_{j=1}^p \boldsymbol\Sigma_{jj}^* / \boldsymbol\Sigma_{jj}$)
+- **Item reliability:** Low or High ($\operatorname{Rel} = p^{-1}\sum_{j=1}^p \boldsymbol\Sigma_{jj}^* / \boldsymbol\Sigma_{jj}$)
 
-- Distributional assumption: Normal or Non-normal
+- **Distributional assumption:** Normal or Non-normal
 
 ```{r}
 #| fig-height: 3.6
