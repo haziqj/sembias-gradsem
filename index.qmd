@@ -20,7 +20,7 @@ author:
     orcid: 0000-0003-3298-1010
     affiliations: 
       - 'Research Specialist, BAYESCOMP @ CEMSE-KAUST'
-      - '<span style="font-style:normal;">[`https://haziqj.ml/sem-bias/`](https://haziqj.ml/sem-bias/)</span>'
+      - '<span style="font-style:normal;">[`https://haziqj.ml/sembias-gradsem/`](https://haziqj.ml/sembias-gradsem/)</span>'
 date: 2025-10-16
 bibliography: refs.bib
 execute:
@@ -146,11 +146,17 @@ Photo credits: Unsplash
 [*"Using SEMs in empirical research is often challenged by small sample sizes."*]{.text-tur}
 
 - Why? Data collection is expensive, time-consuming, or difficult, or all of these!
+
+. . .
+
 - Rare populations:
     - **@quezada2016explanatory:** Identifying factors of adjustment in pediatric burn patients to facilitate appropriate mental health interventions postinjury ($n=51$).
     - **@figueroa2021structural:** Studying functional connectivity network on individuals with rare genetic disorders ($n=22$).
     - **@fabbricatore2023componentbased**: Assessment of psycho-social aspects and performance of elite swimmers ($n=161$).
     - **@manuela2013pacific**: Validating self-report measures of identity on a unique cultural group ($n=143$).
+
+. . .
+
 - SEM is desirable, but small $n \Rightarrow$ poor finite-sample performance (esp. bias). 
 
 ## Outline
@@ -341,16 +347,17 @@ ggcorrplot(
 
 - There is an element of dimension-reduction; much needed for analysing (correlated) multivariate data.
 
+::: {.fragment}
 - Easier to hypothesize relationships, e.g.
   $$
   {\color{kaustmer}\texttt{KdnHlt}} = \alpha + \beta \,  {\color{kaustblu}\texttt{GlyCon}} + \texttt{error}
   $$
 
-
 - SEM is about modelling the <u>covariance structure</u> of the data, 
 $$
 \boldsymbol\Sigma = \boldsymbol\Sigma(\vartheta).
 $$
+:::
 :::
 :::
 
@@ -757,6 +764,7 @@ $$
 $${#eq-bias}
 :::
 
+. . .
 
 Consider the stochastic Taylor expansion of $s(\hat\vartheta)=\nabla\ell(\hat\vartheta)=0$ around $\bar\vartheta$.
 For many common estimators including MLE, the bias function is:
@@ -789,7 +797,7 @@ Consider $X_1,\dots,X_n \sim \text N(0, \sigma^2)$. The MLE for $\sigma^2$ is $\
 #| fig-height: 2.9
 #| fig-width: 7.4
 #| fig-align: center
-plot_sigma2_bias(n = 5)
+plot_sigma2_bias(n = 5, showbias = TRUE)
 ```
 
 ### $n=25$
@@ -987,7 +995,7 @@ where
 
 ::: {.nudge-up-small}
 - $j(\vartheta) = \sum_{i=1}^n \nabla\nabla^\top \ell_i(\vartheta)$ is the observed information;
-- $e(\vartheta) = \sum_{i=1}^n \nabla\ell_i(\vartheta)\nabla^\top\ell_i(\vartheta)\nabla\ell_i(\vartheta)$ is the outer-product of scores.
+- $e(\vartheta) = \sum_{i=1}^n \nabla\ell_i(\vartheta)\nabla^\top\ell_i(\vartheta)$ is the outer-product of scores.
 
 ::: {.nudge-up-small}
 The solution $\tilde\vartheta$ to (-@eq-irbm) is called the [*implicit* RBM estimator (iRBM)]{}.
@@ -998,6 +1006,8 @@ The solution $\tilde\vartheta$ to (-@eq-irbm) is called the [*implicit* RBM esti
 ## Explicit RBM estimator
 
 Intuitively, by thinking in terms of a Newton-style update, an *explicit* estimator is obtained via
+
+::: {.nudge-up-small}
 $$
 \vartheta^*= \hat\vartheta + j(\hat\vartheta)^{-1} A(\hat\vartheta).
 $$
@@ -1020,6 +1030,8 @@ p_erbm
 - Operationally, eRBM is simpler and quicker to compute than iRBM---no re-optimisation needed if $\hat\theta$ is available.
 
 - However, unlike iRBM, no guarantees that bias correction stays inside the parameter space.
+:::
+
 :::
 
 :::

@@ -109,7 +109,7 @@ plot_sigma2_score <- function(n = 15, B = 100, sigma2 = 1, showbias = TRUE) {
       annotate(
         "segment", x = x0, xend = x1, y = y0, yend = y0,
         linewidth = 0.6, colour = "grey40",
-        arrow = arrow(length = unit(7, "pt"), ends = "both", type = "closed")
+        arrow = arrow(length = unit(5, "pt"), ends = "both", type = "closed")
       ) +
       annotate(
         "text", x = (x0 + x1) / 2, y = y0 + 1.5,

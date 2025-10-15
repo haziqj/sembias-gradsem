@@ -227,7 +227,7 @@ Haziq Jamil <a href="https://orcid.org/0000-0003-3298-1010" class="quarto-title-
             Research Specialist, BAYESCOMP @ CEMSE-KAUST
           </p>
         <p class="quarto-title-affiliation">
-            <span style="font-style:normal;"><a href="https://haziqj.ml/sem-bias/"><code>https://haziqj.ml/sem-bias/</code></a></span>
+            <span style="font-style:normal;"><a href="https://haziqj.ml/sembias-gradsem/"><code>https://haziqj.ml/sembias-gradsem/</code></a></span>
           </p>
     </div>
 </div>
@@ -335,6 +335,9 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <p><span class="text-tur"><em>“Using SEMs in empirical research is often challenged by small sample sizes.”</em></span></p>
 <ul>
 <li>Why? Data collection is expensive, time-consuming, or difficult, or all of these!</li>
+</ul>
+<div class="fragment">
+<ul>
 <li>Rare populations:
 <ul>
 <li><strong><span class="citation" data-cites="quezada2016explanatory">Quezada, González, and Mecott (<a href="#/references" role="doc-biblioref" onclick="">2016</a>)</span>:</strong> Identifying factors of adjustment in pediatric burn patients to facilitate appropriate mental health interventions postinjury (<span class="math inline">\(n=51\)</span>).</li>
@@ -342,8 +345,13 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 <li><strong><span class="citation" data-cites="fabbricatore2023componentbased">Fabbricatore et al. (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span></strong>: Assessment of psycho-social aspects and performance of elite swimmers (<span class="math inline">\(n=161\)</span>).</li>
 <li><strong><span class="citation" data-cites="manuela2013pacific">Manuela and Sibley (<a href="#/references" role="doc-biblioref" onclick="">2013</a>)</span></strong>: Validating self-report measures of identity on a unique cultural group (<span class="math inline">\(n=143\)</span>).</li>
 </ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>SEM is desirable, but small <span class="math inline">\(n \Rightarrow\)</span> poor finite-sample performance (esp.&nbsp;bias).</li>
 </ul>
+</div>
 </section>
 <section id="outline" class="slide level2">
 <h2>Outline</h2>
@@ -942,12 +950,15 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 </div><div class="column" style="width:55%;">
 <div class="nudge-down-medium">
 <ul>
-<li><p>The data suggests clustering of variables</p>
+<li>The data suggests clustering of variables
 <ul>
 <li><span class="text-blu"><span class="math inline">\(y_1\)</span>,<span class="math inline">\(y_2\)</span>,<span class="math inline">\(y_3\)</span></span> measure <em>glycemic control</em> (<span class="text-blu"><span class="math inline">\(\texttt{GlyCon}\)</span></span>)</li>
 <li><span class="text-mer"><span class="math inline">\(y_4\)</span>,<span class="math inline">\(y_5\)</span>,<span class="math inline">\(y_6\)</span></span> measure <em>kidney health</em> (<span class="text-mer"><span class="math inline">\(\texttt{KdnHlt}\)</span></span>)</li>
 </ul></li>
-<li><p>There is an element of dimension-reduction; much needed for analysing (correlated) multivariate data.</p></li>
+<li>There is an element of dimension-reduction; much needed for analysing (correlated) multivariate data.</li>
+</ul>
+<div class="fragment">
+<ul>
 <li><p>Easier to hypothesize relationships, e.g. <span class="math display">\[
 {\color{kaustmer}\texttt{KdnHlt}} = \alpha + \beta \,  {\color{kaustblu}\texttt{GlyCon}} + \texttt{error}
 \]</span></p></li>
@@ -955,6 +966,7 @@ Ioannis Kosmidis<br><em>University of Warwick</em>
 \boldsymbol\Sigma = \boldsymbol\Sigma(\vartheta).
 \]</span></p></li>
 </ul>
+</div>
 </div>
 </div></div>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Simulated data, from a two-factor SEM (<span class="math inline">\(n=1000\)</span>).</p></li></ol></aside></section>
@@ -1194,6 +1206,7 @@ y_{it} = \overbrace{(\alpha_1 + \eta_{1i})}^{\text{random int.}} +  \overbrace{(
 </div>
 </div>
 </div>
+<div class="fragment">
 <p>Consider the stochastic Taylor expansion of <span class="math inline">\(s(\hat\vartheta)=\nabla\ell(\hat\vartheta)=0\)</span> around <span class="math inline">\(\bar\vartheta\)</span>. For many common estimators including MLE, the bias function is: <span id="eq-biasseries"><span class="math display">\[
 \mathcal B_{\bar\vartheta} = \frac{b_1(\bar\vartheta)}{n} +  \frac{b_2(\bar\vartheta)}{n^2} + \frac{b_3(\bar\vartheta)}{n^3} +O(n^{-4}).
 \tag{5}\]</span></span></p>
@@ -1204,6 +1217,7 @@ y_{it} = \overbrace{(\alpha_1 + \eta_{1i})}^{\text{random int.}} +  \overbrace{(
 <li>The curvature of the score <span class="math inline">\(s(\vartheta)\)</span> creating asymmetry; and</li>
 <li>The randomness of the score itself.</li>
 </ol>
+</div>
 </div>
 </div>
 </section>
@@ -1904,7 +1918,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <div class="nudge-up-small">
 <ul>
 <li><span class="math inline">\(j(\vartheta) = \sum_{i=1}^n \nabla\nabla^\top \ell_i(\vartheta)\)</span> is the observed information;</li>
-<li><span class="math inline">\(e(\vartheta) = \sum_{i=1}^n \nabla\ell_i(\vartheta)\nabla^\top\ell_i(\vartheta)\nabla\ell_i(\vartheta)\)</span> is the outer-product of scores.</li>
+<li><span class="math inline">\(e(\vartheta) = \sum_{i=1}^n \nabla\ell_i(\vartheta)\nabla^\top\ell_i(\vartheta)\)</span> is the outer-product of scores.</li>
 </ul>
 <div class="nudge-up-small">
 <p>The solution <span class="math inline">\(\tilde\vartheta\)</span> to (<a href="#/eq-irbm" class="quarto-xref">6</a>) is called the <span><em>implicit</em> RBM estimator (iRBM)</span>.</p>
@@ -1914,7 +1928,9 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 </section>
 <section id="explicit-rbm-estimator" class="slide level2">
 <h2>Explicit RBM estimator</h2>
-<p>Intuitively, by thinking in terms of a Newton-style update, an <em>explicit</em> estimator is obtained via <span class="math display">\[
+<p>Intuitively, by thinking in terms of a Newton-style update, an <em>explicit</em> estimator is obtained via</p>
+<div class="nudge-up-small">
+<p><span class="math display">\[
 \vartheta^*= \hat\vartheta + j(\hat\vartheta)^{-1} A(\hat\vartheta).
 \]</span></p>
 <p>This moves <span class="math inline">\(\hat\theta\)</span> in the direction <span class="text-mer"><span class="math inline">\(A(\hat\vartheta)\)</span></span> away from the bias, with step length governed by the curvature <span class="math inline">\(j(\hat\vartheta)^{-1}\)</span>.</p>
@@ -1935,6 +1951,7 @@ P(\vartheta) = -\frac{1}{2} \operatorname{tr} \Big\{ j(\vartheta)^{-1} e(\varthe
 <li><p>However, unlike iRBM, no guarantees that bias correction stays inside the parameter space.</p></li>
 </ul>
 </div></div>
+</div>
 <!-- ## Resampling-based methods -->
 </section></section>
 <section>

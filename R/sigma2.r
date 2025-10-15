@@ -1,7 +1,8 @@
 # Illustration of bias of MLE of sigma^2
 library(tidyverse)
 
-plot_sigma2_bias <- function(n = 10, B = 1000, sigma = 1, seed = 1) {
+plot_sigma2_bias <- function(n = 10, B = 1000, sigma = 1, seed = 1,
+                             showbias = FALSE) {
   set.seed(seed)
   
   res <- map_dbl (
@@ -21,7 +22,8 @@ plot_sigma2_bias <- function(n = 10, B = 1000, sigma = 1, seed = 1) {
     Estimator = c("ML", "Truth")
   )
   
-  ggplot(df, aes(x = res)) +
+  p <- 
+    ggplot(df, aes(x = res)) +
     geom_density(
       aes(fill = "ML", col = "ML"), 
       alpha = 0.5, 
@@ -77,7 +79,6 @@ plot_sigma2_bias <- function(n = 10, B = 1000, sigma = 1, seed = 1) {
     ) +
     labs(
       x = expression(hat(sigma)^2),
-      # x = NULL,
       y = "Density",
       col = "Based on 2000 replications of the ML fit"
     ) +
@@ -89,5 +90,22 @@ plot_sigma2_bias <- function(n = 10, B = 1000, sigma = 1, seed = 1) {
       legend.key.width = unit(1.2, "cm"),
       legend.title = element_text(hjust = 1) # Right-align legend text
     ) 
+  
+  if (isTRUE(showbias)) {
+    x0 <- ml_center
+    x1 <- sigma ^ 2
+    y0 <- max(density(df$x)$y) * 0.95
+    p + 
+      annotate(
+        "segment", x = x0, xend = x1, y = y0, yend = y0,
+        linewidth = 0.6, colour = "grey40",
+        arrow = arrow(length = unit(3, "pt"), ends = "both", type = "closed")
+      ) +
+      annotate(
+        "text", x = (x0 + x1) / 2, y = y0 * 0.95, size = 3,
+        col = "grey40", label = "bias", fontface = "plain")
+  } else {
+    p
+  }
 }
 
